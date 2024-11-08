@@ -1,0 +1,295 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    font-size: 16px; 
+}
+
+/* Header Styles */
+.header {
+    background-color: #E31837;
+    padding: 0.5vw 1.5vw; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* flex-wrap: wrap; */
+}
+
+.logo img {
+    height: 4vw; 
+    width: auto; 
+    margin-right: 3vw; 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 4vw; 
+    /* flex-wrap: wrap; */
+}
+
+nav ul li a {
+    color: rgb(18, 16, 16);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.1rem; 
+}
+
+.login-btn {
+    background-color: rgb(235, 215, 215);
+    color: #080808;
+    border: none;
+    padding: 0.4vw 1.5vw;
+    border-radius: 2.5vw;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    font-size: 1.2rem; 
+    margin-left: 3vw;
+    white-space: nowrap;
+}
+
+.login-btn::before {
+    content: "";
+    display: inline-block;
+    width: 2.5vw;
+    height: 2.5vw;
+    background: url('user-icon.png') no-repeat center;
+    background-size: contain;
+}
+
+main {
+    padding: 3vw 4vw;
+    background-color: #f0f0f0;
+    width: 100%;
+}
+
+main h2 {
+    text-align: center;
+    margin-bottom: 4vw;
+    font-size: 2.5rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2vw;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.service-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    width: 100%;
+}
+
+.service-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 2vw;
+    text-align: center;
+}
+
+.card-overlay h3 {
+    font-size: 2.5vw;
+}
+
+footer {
+    background-color: #E31837;
+    color: white;
+    padding: 0.6vw 1.8vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    width: 100%;
+    font-size: 1rem; 
+}
+
+.footer-left img {
+    height: 4vw;
+    margin-bottom: 1vw;
+}
+
+.footer-left p {
+    margin-bottom: 0.5vw;
+}
+
+.footer-left p img {
+    width: 1.5vw;
+    height: 1.5vw;
+    vertical-align: middle;
+    margin-right: 0.5vw;
+}
+
+.footer-middle ul {
+    list-style: none;
+}
+
+.footer-middle ul li {
+    margin-bottom: 1vw;
+}
+
+.footer-middle ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-right p {
+    margin-bottom: 1vw;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.5vw;
+    list-style: none;
+}
+
+.social-icons img {
+    width: 3vw;
+    height: 3vw;
+}
+
+.footer-bottom {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-top: 2vw;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .header {
+        padding: 2.5vw 4vw;
+    }
+
+    .logo img {
+        height: 5vw;
+    }
+
+    nav ul {
+        gap: 2vw;
+    }
+
+    .login-btn {
+        padding: 0.5vw 1.8vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 3vw 5vw;
+    }
+
+    nav ul {
+        gap: 3vw;
+    }
+
+    main {
+        padding: 3vw 5vw;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    footer {
+        grid-template-columns: 1fr;
+        padding: 3vw 5vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 4vw 6vw;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer {
+        padding: 3vw 4vw;
+    }
+
+    .login-btn {
+        padding: 0.5vw 2vw;
+    }
+
+    .footer-left img,
+    .social-icons img {
+        width: 5vw;
+        height: 5vw;
+    }
+}
+
+/* Ẩn các mục trong header theo kích thước màn hình */
+
+/* Kích thước màn hình nhỏ hơn 1024px, ẩn mục cuối cùng */
+@media (max-width: 1024px) {
+    nav ul li:nth-child(5) { /* Ví dụ: mục "KHUYẾN MÃI" */
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    nav ul li:nth-child(4) { 
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul li:nth-child(3) { 
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    nav ul li:nth-child(2) {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    nav ul li:nth-child(1) { 
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-left p img {
+        width: 2vw;
+        height: 2vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-left p img {
+        width: 3vw;
+        height: 3vw;
+    }
+}
