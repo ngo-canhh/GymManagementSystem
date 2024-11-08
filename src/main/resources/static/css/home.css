@@ -1,0 +1,225 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    font-size: 16px; 
+}
+
+/* Header Styles */
+.header {
+    background-color: #E31837;
+    padding: 0.5vw 1.5vw; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* flex-wrap: wrap; */
+}
+
+.logo img {
+    height: 4vw; 
+    width: auto; 
+    margin-right: 3vw; 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 4vw; 
+    /* flex-wrap: wrap; */
+}
+
+nav ul li a {
+    color: rgb(18, 16, 16);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.1rem; 
+}
+
+.login-btn {
+    background-color: rgb(235, 215, 215);
+    color: #080808;
+    border: none;
+    padding: 0.4vw 1.5vw;
+    border-radius: 2.5vw;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    font-size: 1.2rem; 
+    margin-left: 3vw;
+    white-space: nowrap;
+}
+
+.login-btn::before {
+    content: "";
+    display: inline-block;
+    width: 2.5vw;
+    height: 2.5vw;
+    background: url('user-icon.png') no-repeat center;
+    background-size: contain;
+}
+
+.banner {
+    position: relative;
+    color: white;
+    text-align: left;
+    padding: 40px;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.banner-text {
+    position: absolute;
+    top: 30%;
+    left: 60%;
+    transform: translateY(-50%);
+    padding-top: 10%;
+}
+
+.banner-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.banner-description {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    padding-left: 0%;
+}
+
+.btn-custom {
+    background-color: #d32f2f; /* Màu đỏ */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    margin-top: 20%;
+}
+
+.btn-custom:hover {
+    background-color: #a91d1d; /* Màu đỏ khi hover */
+    color: #fff;
+}
+
+/* Thêm tính năng responsive cho banner */
+@media (max-width: 768px) {
+    .banner-title {
+        font-size: 2rem;
+    }
+    .banner-description {
+        font-size: 1rem;
+    }
+    .banner-text {
+        left: 5%;
+        padding-right: 5%;
+    }
+    .btn-custom {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+.background-container {
+    position: relative;
+    padding: 20px;
+    background-image: url('../images/background_home_story.png');
+    background-position: center;
+    overflow: hidden;
+}
+.background-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.5); /* Màu đỏ với độ trong suốt */
+    z-index: 1;
+}
+.card-wrapper {
+    position: relative;
+    z-index: 2; /* Đảm bảo các card nằm trên lớp phủ */
+}
+.custom-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+footer {
+    background-color: #E31837;
+    color: white;
+    padding: 0.6vw 1.8vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    width: 100%;
+    font-size: 1rem; 
+}
+
+.footer-left img {
+    height: 4vw;
+    margin-bottom: 1vw;
+}
+
+.footer-left p {
+    margin-bottom: 0.5vw;
+}
+
+.footer-left p img {
+    width: 1.5vw;
+    height: 1.5vw;
+    vertical-align: middle;
+    margin-right: 0.5vw;
+}
+
+.footer-middle ul {
+    list-style: none;
+}
+
+.footer-middle ul li {
+    margin-bottom: 1vw;
+}
+
+.footer-middle ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-right p {
+    margin-bottom: 1vw;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.5vw;
+    list-style: none;
+}
+
+.social-icons img {
+    width: 3vw;
+    height: 3vw;
+}
+
+.footer-bottom {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-top: 2vw;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
