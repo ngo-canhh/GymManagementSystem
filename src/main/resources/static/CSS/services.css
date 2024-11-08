@@ -18,20 +18,18 @@ html {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    /* flex-wrap: wrap; */
 }
 
 .logo img {
-    height: 4vw; 
-    width: auto; 
-    margin-right: 3vw; 
+    height: 4.1vw; 
+    width: 15.5; 
+    margin-left: 6vw; 
 }
 
 nav ul {
     display: flex;
     list-style: none;
     gap: 4vw; 
-    /* flex-wrap: wrap; */
 }
 
 nav ul li a {
