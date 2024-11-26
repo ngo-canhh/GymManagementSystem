@@ -1,0 +1,160 @@
+/* Toàn màn hình */
+.order-container {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Phần wrapper */
+#form-wrapper {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Các form con chia đều */
+.form-section {
+  flex: 1;
+  padding: 20px;
+  margin-right: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Khoảng cách giữa các form */
+.form-section:last-child {
+  margin-right: 0;
+}
+
+/* Tiêu đề của các form */
+.form-section h2 {
+  color: #2c3e50;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Các field-row */
+.field-row {
+  margin-bottom: 15px;
+}
+
+.field-row label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #34495e;
+}
+
+.field-row input, 
+.field-row select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.field-row input:focus, 
+.field-row select:focus {
+  border-color: #3498db;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Các button */
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: #3498db;
+  color: white;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Button "red-btn" */
+.red-btn {
+  background-color: #e74c3c;
+}
+
+.red-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Button "green-btn" */
+.green-btn {
+  background-color: #2ecc71;
+}
+
+.green-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Cảnh báo (warnings) */
+.warning, .waring {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+  display: none;
+}
+
+/* Phần bảng */
+#table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#added-item {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+#added-item th, #added-item td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+#added-item th {
+  background-color: #3498db;
+  color: white;
+}
+
+#added-item td {
+  background-color: #f9f9f9;
+}
+
+/* Tổng và thông tin cuối */
+.balance-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.balance-row span {
+  color: #e74c3c;
+}
+
+/* Hiệu ứng hover cho bảng */
+#added-item tr:hover {
+  background-color: #ecf0f1;
+}
