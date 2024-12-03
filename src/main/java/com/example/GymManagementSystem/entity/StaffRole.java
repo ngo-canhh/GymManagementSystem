@@ -1,5 +1,7 @@
 package com.example.GymManagementSystem.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,12 +15,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "personal_trainer")
-@Getter
+@Table(name = "staff_role")
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonalTrainer {
+public class StaffRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
@@ -26,18 +28,15 @@ public class PersonalTrainer {
     @JoinColumn(name = "ID_staff", referencedColumnName = "ID")
     private Staff staff;
 
-    @Column(name = "field")
-    private String field;
+    @JoinColumn(name = "ID_role", referencedColumnName = "ID")
+    private PositionInformation positionInformation;
 
-    @Column(name = "category")
-    private int category;
+    @Column(name = "create_date")
+    private LocalDate create_date;
 
-    @Column(name = "min")
-    private int min;
+    @Column(name = "status")
+    private String staatus;
 
-    @Column(name = "max")
-    private int max;
-
-    @Column(name = "description")
-    private String description;
+    @Column(name = "note")
+    private String note;
 }
