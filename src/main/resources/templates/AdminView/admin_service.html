@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="../../static/images/SOFTGYM.jpg" alt="SoftGym Logo" width="110" height="50">
+                    <img src="/images/SOFTGYM.jpg" alt="SoftGym Logo" width="110" height="50">
                 </a>
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -63,19 +63,17 @@
                     <th></th>
                 </thead>
                 <tbody id="tableBody">
-                    <tr th:each="customer : ${customers}">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" onclick="showInforCustomer('[[${customer.ID}]]')">
-                                    ...
-                                </button>
-                            </td>
-                        </tr>
+                    <tr th:each="service : ${services}">
+                        <td th:text="${service.ID}"></td>
+                        <td th:text="${service.name}"></td>
+                        <td th:text="${service.category}"></td>
+                        <td th:text="${service.sale_price}"></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" onclick="showInforCustomer('[[${service.ID}]]')">
+                                ...
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -95,7 +93,7 @@
 
                     <!-- Body -->
                     <div class="modal-body" id="customerDetails">
-                        
+
                     </div>
                     <!-- Footer -->
                     <div class="modal-footer">
@@ -132,7 +130,7 @@
             const query = document.getElementById("searchInput").value;
 
             //thêm url 
-            fetch(``)
+            fetch(`/admin/ser`)
                 .then(respone => respone.json())
                 .then(data => {
                     const tbody = document.getElementById("tableBody")

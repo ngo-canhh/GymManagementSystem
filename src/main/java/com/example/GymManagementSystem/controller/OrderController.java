@@ -9,6 +9,6 @@ import ch.qos.logback.core.model.Model;
 public class OrderController {
     @GetMapping("/order")
     public String shoeOrder(Model model) {
-        return "StaffViewsHtml/order";
+        return "StaffViews/order";
     }
 }
