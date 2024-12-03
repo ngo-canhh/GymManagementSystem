@@ -1,6 +1,6 @@
 package com.example.GymManagementSystem.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,7 +38,7 @@ public class Staff {
     private String phonenumber;
 
     @Column(name = "date_of_birth")
-    private LocalDateTime date_of_birth;
+    private LocalDate date_of_birth;
 
     @Column(name = "noID")
     private String noID;
