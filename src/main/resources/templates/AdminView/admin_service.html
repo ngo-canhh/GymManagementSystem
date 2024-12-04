@@ -49,7 +49,7 @@
         <div class="container my-2">
             <form class="d-flex" role="search" id="searchForm">
                 <input class="form-control me-2" id="searchInput" type="search"
-                    placeholder="Nhập tên hoặc mã dịch vụ... " aria-label="Search">
+                    placeholder="Nhập tên hoặc mã dịch vụ... " aria-label="Search" name="IDOrName">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -70,7 +70,8 @@
                         <td th:text="${service.sale_price}"></td>
                         <td>
                             <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" onclick="showInforCustomer('[[${service.ID}]]')">
+                                data-bs-target="#exampleModal"
+                                th:attr="onclick='showInforService(' + ${service.ID} + ')'">
                                 ...
                             </button>
                         </td>
@@ -78,9 +79,36 @@
                 </tbody>
             </table>
         </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addService">
+            Thêm dịch vụ
+        </button>
     </div>
 
-    <!-- modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addService" tabindex="-1" aria-labelledby="addServiceLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <form action="">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addServiceLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal showInFor-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
@@ -92,7 +120,7 @@
                     </div>
 
                     <!-- Body -->
-                    <div class="modal-body" id="customerDetails">
+                    <div class="modal-body" id="serviceDetails">
 
                     </div>
                     <!-- Footer -->
@@ -107,13 +135,21 @@
 
 
     <script>
-        function showInforCustomer(customerId) {
-            fetch()
+        function showInforService(serviceID) {
+            fetch(`/admin/service/serviceID?serviceID=${encodeURIComponent(serviceID)}`)
                 .then(respone => respone.json())
-                .then(data => {
-                    const customerDetails = document.getElementById("customerDetails")
-                    customerDetails.innerHTML = `
-                        
+                .then(service => {
+                    const serviceDetails = document.getElementById("serviceDetails")
+                    serviceDetails.innerHTML = `
+                        <p><strong>ID Gói Tập:</strong> ${service.id}</p>
+                        <p><strong>Tên Gói Tập:</strong> ${service.name}</p>
+                        <p><strong>Danh Mục:</strong> ${service.category}</p>
+                        <p><strong>Giá Bán:</strong> ${service.sale_price}.000VND</p>
+                        <p><strong>Phần Trăm PT:</strong> ${service.pt_persentage}%</p>
+                        <p><strong>Phần Trăm Gym:</strong> ${service.gym_persentage}%</p>
+                        <p><strong>Số Lượng Buổi:</strong> ${service.number_of_sessions}</p>
+                        <p><strong>Tần Suất:</strong> ${service.frequency}</p>
+                        <p><strong>Mô Tả:</strong> ${service.description}</p>
                     `;
                 })
                 .catch(error => {
@@ -130,7 +166,7 @@
             const query = document.getElementById("searchInput").value;
 
             //thêm url 
-            fetch(`/admin/ser`)
+            fetch(`/admin/service/searchService?IDOrName=${encodeURIComponent(query)}`)
                 .then(respone => respone.json())
                 .then(data => {
                     const tbody = document.getElementById("tableBody")
@@ -140,13 +176,13 @@
                     data.forEach(service => {
                         tbody.innerHTML += `
                             <tr>
-                                <td>${service.ID}</td>
+                                <td>${service.id}</td>
                                 <td>${service.name}</td>
                                 <td>${service.category}</td>
                                 <td>${service.sale_price}</td>
                                 <td>
                                     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" onclick="showInforCustomer(${service.ID})">
+                                        data-bs-target="#exampleModal" onclick="showInforService(${service.id})">
                                         ...
                                     </button>
                                 </td>

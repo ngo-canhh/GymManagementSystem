@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +23,11 @@ public class PTService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
 
+    @ManyToOne
     @JoinColumn(name = "ID_PT", referencedColumnName = "ID")
     private PersonalTrainer personalTrainer;
 
+    @ManyToOne
     @JoinColumn(name = "ID_service", referencedColumnName = "ID")
     private Service service;
 }

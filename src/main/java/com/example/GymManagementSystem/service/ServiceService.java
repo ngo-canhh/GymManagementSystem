@@ -16,7 +16,11 @@ public class ServiceService {
         return serviceRepository.findAllServices();
     }
 
-    public List<com.example.GymManagementSystem.entity.Service> getAllServicesByIdOrName(int serviceID, String serviceName){
-        return serviceRepository.findAllServicesByIDOrName(serviceID, serviceName);
+    public List<com.example.GymManagementSystem.entity.Service> getAllServicesByIdOrName(String serviceSearch){
+        return serviceRepository.findAllServicesByName(serviceSearch); 
+    }
+
+    public com.example.GymManagementSystem.entity.Service getServiceById(int serviceID){
+        return serviceRepository.findServiceByID(serviceID);
     }
 }
