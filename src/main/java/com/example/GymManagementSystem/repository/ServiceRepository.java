@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.GymManagementSystem.entity.Service;
 
 @Repository
-public interface ServiceRepository extends JpaRepository<Service, Long> {
+public interface ServiceRepository extends JpaRepository<Service, Integer> {
     @Query("SELECT s FROM Service s")
     List<Service> findAllServices();
 

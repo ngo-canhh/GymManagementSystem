@@ -1,6 +1,7 @@
 package com.example.GymManagementSystem.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +16,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "satff")
+@Table(name = "staff")
 @Getter
 @Setter
 @NoArgsConstructor
