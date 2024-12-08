@@ -3,11 +3,11 @@ package com.example.GymManagementSystem.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import com.example.GymManagementSystem.entity.Service;
 import com.example.GymManagementSystem.repository.ServiceRepository;
 
-@Service
+@org.springframework.stereotype.Service
 public class ServiceService {
     @Autowired
     private ServiceRepository serviceRepository;
@@ -22,5 +22,13 @@ public class ServiceService {
 
     public com.example.GymManagementSystem.entity.Service getServiceById(int serviceID){
         return serviceRepository.findServiceByID(serviceID);
+    }
+
+    public Service addNewService(Service service){
+        return serviceRepository.save(service);
+    }
+
+    public List<Service> getAllServicesByCategoryAndStatus(String category, String status){
+        return serviceRepository.findAllServicesByCategoryAndStatus(category, status);
     }
 }

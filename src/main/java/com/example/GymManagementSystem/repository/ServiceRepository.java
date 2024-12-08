@@ -19,4 +19,7 @@ public interface ServiceRepository extends JpaRepository<Service, Long> {
 
     @Query("SELECT s FROM Service s WHERE s.name = :serviceName")
     List<Service> findAllServicesByName(@Param("serviceName") String serviceName);
+
+    @Query("SELECT s FROM Service s WHERE (s.category = :category OR :category = 'All') AND (s.status = :status OR :status = 'All')")
+    List<Service> findAllServicesByCategoryAndStatus(@Param("category") String category, @Param("status") String status);
 }

@@ -26,7 +26,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a href="#" class="nav-link active">Dịch vụ</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Khách hàng</a></li>
+                        <li class="nav-item"><a href="/admin/customer" class="nav-link">Khách hàng</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Nhân viên</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Thiết bị</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Sản phẩm</a></li>
@@ -42,7 +42,7 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container my-3 bg-light-subtle">
         <div class="container d-flex justify-content-center">
             <h3>Danh sách Gói tập</h3>
         </div>
@@ -54,22 +54,36 @@
             </form>
         </div>
         <div class="container">
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered">
                 <thead class="table-dark">
-                    <th>Mã dịch vụ</th>
-                    <th>Tên dịch vụ</th>
-                    <th>Phân loại</th>
-                    <th>Giá bán</th>
-                    <th></th>
+                    <th><button class="btn btn-dark">Mã dịch vụ</button></th>
+                    <th><button class="btn btn-dark">Tên dịch vụ</button></th>
+                    <th><select class="btn btn-dark" name="category" id="categoryFillter">
+                            <option value="All" selected>Phân loại</option>
+                            <option value="Boxing">Boxing</option>
+                            <option value="Personal Training">Chưa có</option>
+                        </select>
+                    </th>
+                    <th><button class="btn btn-dark">Giá</button></th>
+                    <th><select class="btn btn-dark" name="status" id="statusFillter">
+                            <option value="All">Trạng thái</option>
+                            <option value="Hoạt động">Hoạt động</option>
+                            <option value="Ngừng hoạt động">Ngừng hoạt động</option>
+                        </select>
+                    </th>
+                    <th>
+                        <button class="btn btn-dark" onclick="filterService()">Lọc</button>
+                    </th>
                 </thead>
                 <tbody id="tableBody">
-                    <tr th:each="service : ${services}">
+                    <tr th:each="service : ${services}" th:id="${service.ID}">
                         <td th:text="${service.ID}"></td>
                         <td th:text="${service.name}"></td>
                         <td th:text="${service.category}"></td>
                         <td th:text="${service.sale_price}"></td>
+                        <td th:text="${service.status}"></td>
                         <td>
-                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                            <button type="button" class="btn" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
                                 th:attr="onclick='showInforService(' + ${service.ID} + ')'">
                                 ...
@@ -80,30 +94,86 @@
             </table>
         </div>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addService">
-            Thêm dịch vụ
-        </button>
+        <div class="container d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addService">
+                Thêm dịch vụ
+            </button>
+        </div>
     </div>
 
 
 
     <!-- Modal -->
     <div class="modal fade" id="addService" tabindex="-1" aria-labelledby="addServiceLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-scrollable">
             <div class="modal-content">
-                <form action="">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="addServiceLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addServiceLabel">Chi tiết gói tập mới</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label for="inputServiceName" class="col-sm-2 col-form-label">Tên gói tập</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputServiceName" name="name">
+                        </div>
                     </div>
-                    <div class="modal-body">
-
+                    <div class="mb-3 row">
+                        <label for="inputCategory" class="col-sm-2 col-form-label">Loại</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputCategory" name="category">
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="mb-3 row">
+                        <label for="inputSalePrice" class="col-sm-2 col-form-label">Giá bán</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputSalePrice" name="sale_price">
+                        </div>
                     </div>
-                </form>
+                    <div class="mb-3 row">
+                        <label for="inputPTPersentage" class="col-sm-2 col-form-label">PT Persentage</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputPTPersentage" name="pt_persentage">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputGymPersentage" class="col-sm-2 col-form-label">Gym Persentage</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputGymPersentage" name="gym_persentage">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputNumberSession" class="col-sm-2 col-form-label">Số buổi</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputNumberSession" name="number_of_sessions">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputFrequency" class="col-sm-2 col-form-label">Tấn suất</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputFrequency" name="frequency">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputDescription" class="col-sm-2 col-form-label">Mô tả</label>
+                        <div class="col-sm-10">
+                            <textarea class="input-group" rows="3" name="description" id="inputDescription"></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputStatus" class="col-sm-2 col-form-label">Trạng thái: </label>
+                        <div class=" col-sm-10">
+                            <select name="" id="inputStatus" class="form-select">
+                                <option value="Hoạt động">Hoạt động</option>
+                                <option value="Ngừng hoạt động">Ngừng hoạt động</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewService()">Save</button>
+                </div>
             </div>
         </div>
     </div>
@@ -112,90 +182,88 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
-                <form action="" id="updateForm">
-                    <!-- Header -->
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin chi tiết gói tập</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Header -->
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin chi tiết gói tập</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body" id="serviceDetails">
+                    <div class="mb-3 row">
+                        <label for="serviceID" class="col-sm-2 col-form-label">Mã gói tập</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="serviceID" name="ID" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="serviceName" class="col-sm-2 col-form-label">Tên gói tập</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="serviceName" name="name">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="category" class="col-sm-2 col-form-label">Loại</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="category" name="category">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="salePrice" class="col-sm-2 col-form-label">Giá bán</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="salePrice" name="sale_price">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="PTPersentage" class="col-sm-2 col-form-label">PT Persentage</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="PTPersentage" name="pt_persentage">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="GymPersentage" class="col-sm-2 col-form-label">Gym Persentage</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="GymPersentage" name="gym_persentage">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="NumberSession" class="col-sm-2 col-form-label">Số buổi</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="NumberSession" name="number_of_sessions">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="Frequency" class="col-sm-2 col-form-label">Tấn suất</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="Frequency" name="frequency">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="Description" class="col-sm-2 col-form-label">Mô tả</label>
+                        <div class="col-sm-10">
+                            <textarea class="input-group" rows="3" name="description" id="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="status" class="col-sm-2 col-form-label">Trạng thái: </label>
+                        <div class="col-sm-10">
+                            <select name="status" id="status" class="form-select">
+                                <option value="Hoạt động">Hoạt động</option>
+                                <option value="Ngừng hoạt động">Ngừng hoạt động</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <!-- Body -->
-                    <div class="modal-body" id="serviceDetails">
-
-                    </div>
-                    <!-- Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="updateService()">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-
-
-    <script>
-        function showInforService(serviceID) {
-            fetch(`/admin/service/serviceID?serviceID=${encodeURIComponent(serviceID)}`)
-                .then(respone => respone.json())
-                .then(service => {
-                    const serviceDetails = document.getElementById("serviceDetails")
-                    serviceDetails.innerHTML = `
-                        <p><strong>ID Gói Tập:</strong> ${service.id}</p>
-                        <p><strong>Tên Gói Tập:</strong> ${service.name}</p>
-                        <p><strong>Danh Mục:</strong> ${service.category}</p>
-                        <p><strong>Giá Bán:</strong> ${service.sale_price}.000VND</p>
-                        <p><strong>Phần Trăm PT:</strong> ${service.pt_persentage}%</p>
-                        <p><strong>Phần Trăm Gym:</strong> ${service.gym_persentage}%</p>
-                        <p><strong>Số Lượng Buổi:</strong> ${service.number_of_sessions}</p>
-                        <p><strong>Tần Suất:</strong> ${service.frequency}</p>
-                        <p><strong>Mô Tả:</strong> ${service.description}</p>
-                    `;
-                })
-                .catch(error => {
-                    console.log(error);
-
-                })
-        }
-    </script>
-
-    <script>
-        document.getElementById("searchForm").addEventListener("submit", function (event) {
-            event.preventDefault(); //chặn gửi form mặc định
-
-            const query = document.getElementById("searchInput").value;
-
-            //thêm url 
-            fetch(`/admin/service/searchService?IDOrName=${encodeURIComponent(query)}`)
-                .then(respone => respone.json())
-                .then(data => {
-                    const tbody = document.getElementById("tableBody")
-
-                    tbody.innerHTML = "";
-
-                    data.forEach(service => {
-                        tbody.innerHTML += `
-                            <tr>
-                                <td>${service.id}</td>
-                                <td>${service.name}</td>
-                                <td>${service.category}</td>
-                                <td>${service.sale_price}</td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" onclick="showInforService(${service.id})">
-                                        ...
-                                    </button>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        });
-    </script>
-
+    <script src="/JS/admin_service.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

@@ -2,6 +2,7 @@ package com.example.GymManagementSystem.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -44,4 +48,29 @@ public class AdminController {
         return ResponseEntity.ok(service);
     }
 
+    @PostMapping("/service/add_new_service")
+    public ResponseEntity<?> addNewService(@RequestBody Service service){
+        Service savedService = serviceService.addNewService(service);
+        return ResponseEntity.ok(savedService);
+    }
+
+    @GetMapping("/service/filter_service")
+    public ResponseEntity<?> filterService(@RequestParam("category") String category, @RequestParam("status") String status){
+        List<Service> services = serviceService.getAllServicesByCategoryAndStatus(category, status);
+        return ResponseEntity.ok(services);
+    }
+
+    @PutMapping("/service/upadate_service")
+    public ResponseEntity<?> updateService(@RequestBody Service service) {
+        Service savedService = serviceService.addNewService(service);
+        
+        if (savedService == null) {
+            // Trả về lỗi nếu không lưu thành công
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cập nhật dịch vụ thất bại.");
+        }
+        
+        // Trả về dịch vụ đã cập nhật hoặc một thông báo thành công
+        return ResponseEntity.ok(savedService); // Hoặc trả về một đối tượng thông báo nếu cần
+    }
+    
 } 

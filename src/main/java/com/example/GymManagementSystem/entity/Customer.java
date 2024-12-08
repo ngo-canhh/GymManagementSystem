@@ -44,6 +44,9 @@ public class Customer {
     private String address;
 
     @Column(name = "create_date")
-    private LocalDate date;
+    private LocalDate create_date;
+
+    @Column(name = "category")
+    private int category;
 
 }

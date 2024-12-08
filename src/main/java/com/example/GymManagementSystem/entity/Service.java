@@ -45,4 +45,7 @@ public class Service {
 
     @Column(name = "gym_persentage")
     private double gym_persentage;
+
+    @Column(name = "status")
+    private String status;
 }
