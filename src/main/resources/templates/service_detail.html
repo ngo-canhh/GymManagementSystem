@@ -1,0 +1,119 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gói Tập Gym Chuyên Nghiệp</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/"><img src="/images/SOFTGYM.jpg" alt="SoftGym Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/service}">Dịch Vụ</a></li>
+                <li><a href="#">Lịch Tập</a></li>
+                <li><a href="#">Chính Sách Giá</a></li>
+                <li><a href="#">CLB</a></li>
+                <li><a href="#">Khuyến Mãi</a></li>
+            </ul>
+        </nav>
+        <button class="login-btn">Login</button>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row">
+            <h1 class="display-4 mb-4"><span th:text="${service.name}"></span></h1>
+            <p class="lead"><span th:text = "${service.description}"></span></p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Chi Tiết Gói Tập</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Thời Hạn
+                                <span class="badge bg-primary rounded-pill" th:text="${service.number_of_sessions} + ' Buổi'"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Huấn Luyện Viên Cá Nhân
+                                <span class="badge bg-success rounded-pill">Có</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Truy Cập Phòng Tập
+                                <span class="badge bg-info rounded-pill">24/7</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Dụng Cụ Tập Luyện
+                                <span class="badge bg-warning rounded-pill">Có</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Trạng Thái
+                                <span class="badge bg-danger rounded-pill" th:text="${service.status}"></span>  
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Số buổi / tuần
+                                <span class="badge bg-danger rounded-pill" th:text="${service.frequency}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="text-primary"><span th:text="${service.sale_price}"></span></h3>
+                        <p class="text-muted"><del>3,000,000 VNĐ</del></p>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-lg btn-primary w-100">Đăng Ký Ngay</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="/images/background_home_story.png" class="img-fluid rounded shadow" alt="Phòng Tập Gym" style="align-items: flex-end;">
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Máy Móc Hiện Đại</h5>
+                        <p class="card-text">Trang bị máy móc tập luyện tiên tiến, phù hợp mọi đối tượng.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Huấn Luyện Viên Chuyên Nghiệp</h5>
+                        <p class="card-text">Đội ngũ HLV giàu kinh nghiệm, hỗ trợ tối đa quá trình tập luyện.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Không Gian Thoáng Đãng</h5>
+                        <p class="card-text">Môi trường tập luyện sạch sẽ, rộng rãi và chuyên nghiệp.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2024 Fitness Center. Đăng ký ngay để bắt đầu hành trình fitness của bạn!</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.example.GymManagementSystem.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "khachhang")
+@Table(name = "customer")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,19 +22,31 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
 
-    private String name;
+    @Column(name = "full_name")
+    private String full_name;
 
-    private Integer age;
+    @Column(name = "age")
+    private int age;
 
+    @Column(name = "sex")
     private String sex;
 
-    private LocalDate registerDate;
+    @Column(name = "phonenumber")
+    private String phonenumber;
 
-    private Integer category;
-
-    private String phoneNumber;
-
+    @Column(name = "email")
     private String email;
 
-    private String password;
+    @Column(name = "date_of_birth")
+    private LocalDate date_of_birth;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "create_date")
+    private LocalDate create_date;
+
+    @Column(name = "category")
+    private int category;
+
 }

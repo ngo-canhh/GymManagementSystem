@@ -14,6 +14,21 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
     @Query("SELECT s FROM Service s")
     List<Service> findAllServices();
 
-    @Query("SELECT s FROM Service s WHERE s.ID = :serviceID OR s.name = :serviceName")
-    List<Service> findAllServicesByIDOrName(@Param("serviceID") int serviceID, @Param("serviceName") String serviceName);
+    @Query("SELECT DISTINCT s.category FROM Service s")
+    List<String> findDistinctCategory();
+
+    @Query("SELECT s FROM Service s WHERE s.category = :category")
+    List<Service> findByCategory(String category);
+
+    @Query("SELECT s FROM Service s WHERE s.category = :name")
+    <list>Service findServiceByCategoryName(String name);
+
+    @Query("SELECT s FROM Service s WHERE s.ID = :serviceID")
+    Service findServiceByID(@Param("serviceID") int serviceID);
+
+    @Query("SELECT s FROM Service s WHERE s.name = :serviceName")
+    List<Service> findAllServicesByName(@Param("serviceName") String serviceName);
+
+    @Query("SELECT s FROM Service s WHERE (s.category = :category OR :category = 'All') AND (s.status = :status OR :status = 'All')")
+    List<Service> findAllServicesByCategoryAndStatus(@Param("category") String category, @Param("status") String status);
 }

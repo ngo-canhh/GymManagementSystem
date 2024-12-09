@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="../../static/images/SOFTGYM.jpg" alt="SoftGym Logo" width="110" height="50">
+                    <img src="/images/SOFTGYM.jpg" alt="SoftGym Logo" width="110" height="50">
                 </a>
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -25,11 +25,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a href="#" class="nav-link">Dịch vụ</a></li>
+                        <li class="nav-item"><a href="/admin/service" class="nav-link">Dịch vụ</a></li>
                         <li class="nav-item"><a href="#" class="nav-link active">Khách hàng</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Nhân viên</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Thiết bị</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Sản phẩm</a></li>
+                        <li class="nav-item"><a href="/admin/product" class="nav-link">Sản phẩm</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Huấn luyện viên</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Doanh số</a></li>
                     </ul>
@@ -54,168 +54,210 @@
             </form>
         </div>
         <div class="container">
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered">
                 <thead class="table-dark">
-                    <th>Mã khách hàng</th>
-                    <th>Tên khách hàng</th>
-                    <th>Số điện thoại</th>
-                    <th>Giới tính</th>
-                    <th>Hạng</th>
-                    <th>Ngày tham gia</th>
-                    <th></th>
+                    <tr>
+                        <td><button class="btn btn-dark">Mã khách hàng</button></td>
+                        <td><button class="btn btn-dark">Tên khách hàng</button></td>
+                        <td><button class="btn btn-dark">Số điện thoại</button></td>
+                        <td><button class="btn btn-dark">Tuổi</button></td>
+                        <td><select class="btn btn-dark" name="sex" id="filteSex">
+                                <option value="all">Giới tính</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select></td>
+                        <td><select name="category" id="filterCategory" class="btn btn-dark">
+                                <option value="-1">Loại khách hàng</option>
+                                <option value="1">Bình dân</option>
+                                <option value="2">Khách quý</option>
+                                <option value="3">Đại gia</option>
+                                <option value="4">VIP</option>
+                                <option value="5">Làm bố tao</option>
+                            </select></td>
+                        <td><button class="btn btn-dark">Ngày tham gia</button></td>
+                        <th>
+                            <button class="btn btn-dark" onclick="filterCustomer()">Lọc</button>
+                        </th>
+                    </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <tr th:each="customer : ${customers}">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" onclick="showInforCustomer('[[${customer.ID}]]')">
-                                    ...
-                                </button>
-                            </td>
-                        </tr>
+                    <tr th:each="customer : ${customers}" th:id="${customer.ID}">
+                        <td th:text="${customer.ID}"></td>
+                        <td th:text="${customer.full_name}"></td>
+                        <td th:text="${customer.phonenumber}"></td>
+                        <td th:text="${customer.age}"></td>
+                        <td th:text="${customer.sex}"></td>
+                        <td th:text="${customer.category}"></td>
+                        <td th:text="${customer.create_date}"></td>
+                        <td>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#detailsCustomer"
+                                th:attr="onclick='showInforCustomer(' + ${customer.ID} + ')'">...</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <div class="container d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Thêm khách hàng
+            </button>
+        </div>
     </div>
-
-    <!-- modal -->
+    <!-- modal add customer -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <form action="" id="updateForm">
-                    <!-- Header -->
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin chi tiết khách hàng</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết thông tin</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label for="name" class="col-sm-4 col-form-label">Tên khách hàng:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="name" name="full_name">
+                        </div>
                     </div>
-
-                    <!-- Body -->
-                    <div class="modal-body" id="customerDetails">
-                        
+                    <div class="mb-3 row">
+                        <label for="age" class="col-sm-2 col-form-label">Tuổi: </label>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" id="age" name="age">
+                        </div>
+                        <label for="sex" class="col-sm-3 col-form-label">Giới tính:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="sex" name="sex">
+                        </div>
                     </div>
-                    <!-- Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="mb-3 row">
+                        <label for="phonenumber" class="col-sm-4 col-form-label">Số điện thoại:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="phonenumber" name="phonenumber">
+                        </div>
                     </div>
-                </form>
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-4 col-form-label">Email:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="email" name="email">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="date_of_birth" class="col-sm-4 col-form-label">Ngày sinh:</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="category" class="col-sm-4 col-form-label">Hạng: </label>
+                        <div class="col-sm-8">
+                            <select name="category" id="category" class="form-select">
+                                <option value="1">Bình dân</option>
+                                <option value="2">Khách quý</option>
+                                <option value="3">Đại gia</option>
+                                <option value="4">VIP</option>
+                                <option value="5">Làm bố tao</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="address" class="col-sm-4 col-form-label">Địa chỉ:</label>
+                        <div class="col-sm-8">
+                            <textarea class="input-group" rows="3" name="address" id="address"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewCustomer()">Save</button>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <script>
-        function showInforCustomer(customerId) {
-            fetch()
-                .then(respone => respone.json())
-                .then(data => {
-                    const customerDetails = document.getElementById("customerDetails")
-                    customerDetails.innerHTML = `
-                        <div class="row mb-3">
-                            <label class="col-4 fw-bold">Họ và tên:</label>
-                            <div class="col-8">Vũ Đình Cường</div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-4 fw-bold">Tuổi:</label>
-                            <div class="col-8">21</div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-4 fw-bold">Giới tính:</label>
-                            <div class="col-8">Nam</div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-4 fw-bold">SĐT:</label>
-                            <div class="col-8">0987836962</div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-4 fw-bold">Email:</label>
-                            <div class="col-8 text-truncate">vhdvbjhdbbad@jdvbksdv.com</div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-4 fw-bold">Địa chỉ:</label>
-                            <div class="col-8 text-wrap">
-                                <p class="mb-0" style="overflow-wrap: break-word; white-space: normal;">
-                                    sdkvhihoeiovuotbvpeortuwepo;tevrtoesdlvihsh
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-4 fw-bold">Hạng:</label>
-                            <div class="col-8">
-                                <select class="form-select" id="rankSelect">
-                                    <option value="1">1 - Bình thường</option>
-                                    <option value="2">2 - Khá</option>
-                                    <option value="3">3 - Tốt</option>
-                                    <option value="4">4 - Rất tốt</option>
-                                    <option value="5" selected>5 - VIP</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-4 fw-bold">Trạng thái:</label>
-                            <div class="col-8">
-                                <select class="form-select" id="statusSelect">
-                                    <option value="active">Active</option>
-                                    <option value="disable">Disable</option>
-                                </select>
-                            </div>
-                        </div>
-                    `;
-                })
-                .catch(error => {
-                    console.log(error);
 
-                })
-        }
-    </script>
+    <!-- modal details customer -->
+    <div class="modal fade" id="detailsCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin chi tiết khách hàng</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label for="customerID" class="col-sm-4 col-form-label">Mã khách hàng:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="customerID" name="ID" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerName" class="col-sm-4 col-form-label">Tên khách hàng:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="customerName" name="full_name">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerAge" class="col-sm-2 col-form-label">Tuổi: </label>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" id="customerAge" name="age">
+                        </div>
+                        <label for="customerSex" class="col-sm-3 col-form-label">Giới tính:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="customerSex" name="sex">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerPhone" class="col-sm-4 col-form-label">Số điện thoại:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="customerPhone" name="phonenumber">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerEmail" class="col-sm-4 col-form-label">Email:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="customerEmail" name="email">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerBirth" class="col-sm-4 col-form-label">Ngày sinh:</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="customerBirth" name="date_of_birth">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerCreateDate" class="col-sm-4 col-form-label">Ngày sinh:</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="customerCreateDate" name="create_date">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerCategory" class="col-sm-4 col-form-label">Hạng: </label>
+                        <div class="col-sm-8">
+                            <select name="category" id="customerCategory" class="form-select">
+                                <option value="1">Bình dân</option>
+                                <option value="2">Khách quý</option>
+                                <option value="3">Đại gia</option>
+                                <option value="4">VIP</option>
+                                <option value="5">Làm bố tao</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="customerAddress" class="col-sm-4 col-form-label">Địa chỉ:</label>
+                        <div class="col-sm-8">
+                            <textarea class="input-group" rows="3" name="address" id="customerAddress"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateCustomer()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        document.getElementById("searchForm").addEventListener("submit", function (event) {
-            event.preventDefault(); //chặn gửi form mặc định
-
-            const query = document.getElementById("searchInput").value;
-
-            //thêm url 
-            fetch(``)
-                .then(respone => respone.json())
-                .then(data => {
-                    const tbody = document.getElementById("tableBody")
-
-                    tbody.innerHTML = "";
-
-                    data.forEach(customer => {
-                        tbody.innerHTML += `
-                            <tr>
-                                <td>${customer.ID}</td>
-                                <td>${customer.fullname}</td>
-                                <td>${customer.numberphone}</td>
-                                <td>${customer.sex}</td>
-                                <td>${customer.category}</td>
-                                <td>${customer.create_date}</td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" onclick="showInforCustomer(${customer.ID})">
-                                        ...
-                                    </button>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        });
-    </script>
-
+    <script src="/JS/admin_customer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
