@@ -1,4 +1,4 @@
-/* Reset CSS */
+Reset CSS
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +10,6 @@ html {
     font-size: 16px; 
 }
 
-/* Header Styles */
 .header {
     background-color: #E31837;
     padding: 0.5vw 1.5vw; 
@@ -21,9 +20,9 @@ html {
 }
 
 .logo img {
-    height: 4.1vw; 
-    width: 15.5; 
-    margin-left: 6vw; 
+    height: 4vw; 
+    width: auto; 
+    margin-left: 3vw; 
 }
 
 nav ul {
@@ -175,7 +174,6 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .services-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -245,11 +243,9 @@ footer {
     }
 }
 
-/* Ẩn các mục trong header theo kích thước màn hình */
 
-/* Kích thước màn hình nhỏ hơn 1024px, ẩn mục cuối cùng */
 @media (max-width: 1024px) {
-    nav ul li:nth-child(5) { /* Ví dụ: mục "KHUYẾN MÃI" */
+    nav ul li:nth-child(5) { 
         display: none;
     }
 }
