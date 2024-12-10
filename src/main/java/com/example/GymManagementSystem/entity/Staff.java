@@ -1,6 +1,9 @@
 package com.example.GymManagementSystem.entity;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.example.GymManagementSystem.DTO.StaffDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,4 +58,13 @@ public class Staff {
 
     @Column(name = "address")
     private String address;
+
+    @Transient
+    private String status;
+
+    @Transient
+    private String role;
+
+    @Transient
+    private List<StaffDTO> staffDTOs;
 }

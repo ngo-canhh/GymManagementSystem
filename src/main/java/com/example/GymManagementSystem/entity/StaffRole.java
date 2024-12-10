@@ -38,7 +38,7 @@ public class StaffRole {
     private LocalDate create_date;
 
     @Column(name = "status")
-    private String staatus;
+    private String status;
 
     @Column(name = "note")
     private String note;
