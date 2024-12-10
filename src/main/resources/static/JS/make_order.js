@@ -242,8 +242,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             console.log(data);
-            alert('Order created successfully');
-            window.location.href = '/';
+            if (data.redirectUrl) {
+                window.location.href = data.redirectUrl;
+            }
         })
     });
 
