@@ -46,4 +46,7 @@ public class Equipment {
 
     @Column(name = "position")
     private String position;
+
+    @Column(name = "quantity")
+    private int quantity;
 }

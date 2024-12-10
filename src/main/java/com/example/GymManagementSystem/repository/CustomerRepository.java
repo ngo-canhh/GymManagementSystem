@@ -14,7 +14,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("SELECT c FROM Customer c")
     List<Customer> findAllCustomers();
 
-    @Query("SELECT c FROM Customer c WHERE c.full_name = :name")
+    @Query("SELECT c FROM Customer c WHERE c.full_name LIKE %:name%")
     List<Customer> findAllCustomersByName(@Param("name") String name);
 
     @Query("SELECT c FROM Customer c WHERE c.ID = :ID")

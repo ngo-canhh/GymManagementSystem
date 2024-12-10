@@ -2,8 +2,6 @@ package com.example.GymManagementSystem.entity;
 
 import java.time.LocalDate;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,33 +16,37 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "bill")
+@Table(name = "customer_service")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bill {
+public class CustomerService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "ID_staff")
+    @JoinColumn(name = "ID_staff", referencedColumnName = "ID")
     private Staff staff;
 
     @ManyToOne
-    @JoinColumn(name = "ID_customer")
-    private Customer customer;
+    @JoinColumn(name = "ID_service", referencedColumnName = "ID")
+    private PTService ptService;
 
-    @Column(name = "create_date")
-    private LocalDate create_date;
+    @ManyToOne
+    @JoinColumn(name = "ID_bill", referencedColumnName = "ID")
+    private Bill bill;
 
-    @Column(name = "total_amount")
-    private double total_amount;
+    @Column(name = "purchase_price")
+    private double purchase_price;
 
-    @Column(name = "payment_method")
-    private String payment_method;
+    @Column(name = "purchase_date")
+    private LocalDate purchase_date;
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "remaining_sessions")
+    private int remaining_sessions;
 }

@@ -188,8 +188,10 @@ function filterCustomer() {
 document.getElementById("searchForm").addEventListener("submit", function (event) {
     event.preventDefault(); //chặn gửi form mặc định
 
-    const query = document.getElementById("searchInput").value;
-
+    const searchquery = document.getElementById("searchInput").value;
+    const query = searchquery.trim();
+    console.log(query);
+    
     //thêm url 
     fetch(`/admin/customer/searchCustomer?NameOrPhone=${encodeURIComponent(query)}`)
         .then(respone => respone.json())

@@ -47,6 +47,6 @@ public class Customer {
     private LocalDate create_date;
 
     @Column(name = "category")
-    private int category;
+    private Integer category;
 
 }
