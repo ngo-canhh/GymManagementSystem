@@ -1,8 +1,6 @@
 package com.example.GymManagementSystem.entity;
 
-import java.time.LocalDate;
-
-import org.hibernate.annotations.ManyToAny;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +35,7 @@ public class Bill {
     private Customer customer;
 
     @Column(name = "create_date")
-    private LocalDate create_date;
+    private LocalDateTime create_date;
 
     @Column(name = "total_amount")
     private double total_amount;
