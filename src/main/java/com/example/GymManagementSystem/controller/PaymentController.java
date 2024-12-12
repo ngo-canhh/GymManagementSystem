@@ -108,7 +108,7 @@ public class PaymentController {
             bill.setStaff(staff);
             bill.setTotal_amount(total);
             bill.setCreate_date(LocalDate.now());
-            bill.setPayment_method("Cash");
+            bill.setPayment_method("Credit Card");
             bill.setStatus("Pending");
             billRepository.save(bill);
     
