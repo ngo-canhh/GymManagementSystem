@@ -27,8 +27,8 @@ public class CustomerService {
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "ID_staff", referencedColumnName = "ID")
-    private Staff staff;
+    @JoinColumn(name = "ID_customer", referencedColumnName = "ID")
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "ID_service", referencedColumnName = "ID")
