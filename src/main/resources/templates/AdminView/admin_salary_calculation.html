@@ -78,27 +78,7 @@
             <button id="calculate-salary-btn" class="btn btn-primary">Xác nhận tính lương</button>
         </div>
     </div>
-
-    <script>
-
-        const yearSelect = document.getElementById('year-select');
-        const currentYear = new Date().getFullYear();
-        for (let year = currentYear; year >= currentYear - 2; year--) {
-            const option = document.createElement('option');
-            option.value = year;
-            option.textContent = year;
-            yearSelect.appendChild(option);
-        }
-
-        document.getElementById('calculate-salary-btn').addEventListener('click', function () {
-            const selectedYear = document.getElementById('year-select').value;
-            const selectedMonth = document.getElementById('month-select').value;
-
-            alert(`Bắt đầu tính lương cho tháng ${selectedMonth} năm ${selectedYear}`);
-
-        });
-    </script>
-
+    <script src="/JS/salary.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
