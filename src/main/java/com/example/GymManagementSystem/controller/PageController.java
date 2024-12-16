@@ -4,14 +4,18 @@ import java.util.List;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.GymManagementSystem.entity.Customer;
 import com.example.GymManagementSystem.entity.Service;
+import com.example.GymManagementSystem.repository.CustomerRepository;
 import com.example.GymManagementSystem.repository.ServiceRepository;
+import com.example.GymManagementSystem.service.CustomerService;
 
 import org.springframework.ui.Model;
 
@@ -20,6 +24,11 @@ import org.springframework.ui.Model;
 public class PageController {
     @Autowired
     private ServiceRepository serviceRepository;
+
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private CustomerRepository customerRepository;
     
     @GetMapping({"/", ""})
     public String home() {
@@ -54,5 +63,13 @@ public class PageController {
         List<Service> services = serviceRepository.findByCategory(category);
         return ResponseEntity.ok(services);
     }   
+
+    @GetMapping("/registed_service")
+    public String registed_service(Model model) {
+        Customer customer = customerRepository.findCustomerByID(1);
+
+        model.addAttribute("courses",customerService.getCustomerServiceByCustomer(customer));
+        return "courseInfo";
+    }
     
 }

@@ -38,6 +38,10 @@ public class CustomerService {
     @JoinColumn(name = "ID_bill", referencedColumnName = "ID")
     private Bill bill;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_customer", referencedColumnName = "ID")
+    private Customer customer;
+
     @Column(name = "purchase_price")
     private double purchase_price;
 
