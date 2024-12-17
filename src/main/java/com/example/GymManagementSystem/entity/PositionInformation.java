@@ -30,4 +30,8 @@ public class PositionInformation {
 
     @Column(name = "basic_salary")
     private double basic_salary;
+
+    public double getBasicSalary() {
+        return basic_salary;
+    }
 }

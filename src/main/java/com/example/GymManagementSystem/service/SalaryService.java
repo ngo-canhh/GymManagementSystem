@@ -2,40 +2,67 @@ package com.example.GymManagementSystem.service;
 
 import com.example.GymManagementSystem.DTO.SalaryDTO;
 import com.example.GymManagementSystem.entity.Staff;
+import com.example.GymManagementSystem.entity.StaffRole;
+import com.example.GymManagementSystem.entity.PositionInformation;
 import com.example.GymManagementSystem.repository.StaffRepository;
-import com.example.GymManagementSystem.repository.NotificationRepository;
+import com.example.GymManagementSystem.repository.StaffRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class SalaryService {
 
     @Autowired
-    private StaffRepository StaffRepository;
+    private StaffRepository staffRepository;
     
     @Autowired
-    private NotificationRepository notificationRepository;
+    private StaffRoleRepository staffRoleRepository;
 
-    public void calculateSalary(SalaryDTO salaryDTO) {
-        List<Staff> Staffs = StaffRepository.findAll(); 
-        for (Staff Staff : Staffs) {
-            double salary = calculateStaffSalary(Staff, salaryDTO.getYear(), salaryDTO.getMonth());
+    public List<SalaryDTO> calculateSalaries(int month, int year) {
+        List<SalaryDTO> salaryDTOs = new ArrayList<>();
+         List<Staff> staffs = staffRepository.findAllStaff();
+        for (Staff staff : staffs) {
+            StaffRole staffRole = staffRoleRepository.findActiveStaffRoleById(staff.getID());
 
-            // Staff.setSalary(salary);
-            StaffRepository.save(Staff);
-
-            // sendSalaryNotification(Staff, salaryDTO);
+            if (staffRole != null && staffRole.getPositionInformation() != null) {
+                PositionInformation positionInformation = staffRole.getPositionInformation();
+                double salaryAmount = positionInformation.getBasicSalary();
+                salaryDTOs.add(new SalaryDTO(staff.getID(), month, year, salaryAmount));
+            }
         }
+        return salaryDTOs;
     }
 
-    private double calculateStaffSalary(Staff Staff, int year, int month) {
-        return 1000.0; 
+    public List<SalaryDTO> getSalariesByMonthAndYear(int month, int year) {
+        List<SalaryDTO> salaryDTOs = new ArrayList<>();
+        List<Staff> staffs = staffRepository.findAll();
+        
+        for (Staff staff : staffs) {
+            StaffRole staffRole = staffRoleRepository.findActiveStaffRoleById(staff.getID());
+            
+            if (staffRole != null && staffRole.getPositionInformation() != null) {
+                PositionInformation positionInformation = staffRole.getPositionInformation();
+                double salaryAmount = positionInformation.getBasicSalary();
+                
+                salaryDTOs.add(new SalaryDTO(staff.getID(), month, year, salaryAmount));
+            }
+        }
+        
+        return salaryDTOs;
     }
-
-    // private void sendSalaryNotification(Staff Staff, SalaryDTO salaryDTO) {
-    //     String notificationContent = "Lương tháng " + salaryDTO.getMonth() + "/" + salaryDTO.getYear() + " đã được tính. Vui lòng kiểm tra!";
-    //     notificationRepository.save(new Notification(Staff.getId(), notificationContent));
-    // }
+    public SalaryDTO getSalaryByEmployeeIdAndMonthAndYear(Long employeeId, int month, int year) {
+        return staffRepository.findById(employeeId)
+            .map(staff -> {
+                StaffRole staffRole = staffRoleRepository.findActiveStaffRoleById(staff.getID());
+                if (staffRole != null && staffRole.getPositionInformation() != null) {
+                    double salaryAmount = staffRole.getPositionInformation().getBasicSalary();
+                    return new SalaryDTO(staff.getID(), month, year, salaryAmount);
+                }
+                return null; 
+            })
+            .orElse(null); 
+    }
 }

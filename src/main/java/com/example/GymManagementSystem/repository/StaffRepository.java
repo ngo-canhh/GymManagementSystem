@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.GymManagementSystem.entity.Staff;
 
 @Repository
-public interface StaffRepository extends JpaRepository<Staff, Integer> {
+public interface StaffRepository extends JpaRepository<Staff, Long> {
     @Query("SELECT s FROM Staff s")
     List<Staff> findAllStaff();
 
