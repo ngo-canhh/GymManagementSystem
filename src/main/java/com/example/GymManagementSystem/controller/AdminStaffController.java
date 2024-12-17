@@ -85,7 +85,7 @@ public class AdminStaffController {
 
     @PutMapping("/update_staff")
     public ResponseEntity<?> updateStaff(@RequestBody Staff staff){
-        staff = (Staff) staffService.getStaffByID(staff.getID()).get("data");
+        // staff = (Staff) staffService.getStaffByID(staff.getID()).get("data");
         Map<String, Object> response = staffService.updateStaff(staff);
         if ((boolean) response.get("success")) {
             return ResponseEntity.ok(response.get("data"));

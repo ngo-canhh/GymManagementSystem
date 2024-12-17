@@ -97,38 +97,41 @@ function showInforStaff(staffID) {
 //cập nhật gói tập
 function updateStaff() {
     const staff = {
-        id : document.getElementById("staffID").value,
-        full_name : document.getElementById("staffName").value,
-        noID : document.getElementById("staffNoID").value,
-        age : document.getElementById("staffAge").value,
-        sex : document.getElementById("staffSex").value,
-        date_of_birth : document.getElementById("staffDateOfBirth").value,
-        phonenumber : document.getElementById("staffPhonenumber").value,
-        email : document.getElementById("staffEmail").value,
-        bank_account : document.getElementById("staffBankAccount").value,
-        role : document.getElementById("staffRole").value,
-        address : document.getElementById("staffAddress").value
-}
+        id: document.getElementById("staffID").value,
+        full_name: document.getElementById("staffName").value,
+        noID: document.getElementById("staffNoID").value,
+        age: document.getElementById("staffAge").value,
+        sex: document.getElementById("staffSex").value,
+        date_of_birth: document.getElementById("staffDateOfBirth").value,
+        phonenumber: document.getElementById("staffPhonenumber").value,
+        email: document.getElementById("staffEmail").value,
+        bank_account: document.getElementById("staffBankAccount").value,
+        role: document.getElementById("staffRole").value,
+        address: document.getElementById("staffAddress").value
+    }
 
-fetch(`/admin/staff/update_staff`, {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(staff),
-})
-    .then(response => {
-        if (!response.ok) {
-            return response.text().then(message => {
-                throw new Error(message);
-            })
-        }
-        return response.json();
+    console.log(staff);
+    
+
+    fetch(`/admin/staff/update_staff`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(staff),
     })
-    .then(data => {
-        // alert("Thành công");
-        const row = document.getElementById(data.id);
-        row.innerHTML = `
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(message => {
+                    throw new Error(message);
+                })
+            }
+            return response.json();
+        })
+        .then(data => {
+            // alert("Thành công");
+            const row = document.getElementById(data.id);
+            row.innerHTML = `
                 <tr id="${data.id}">
                     <td>${data.id}</td>
                     <td>${data.full_namename}</td>
@@ -146,11 +149,11 @@ fetch(`/admin/staff/update_staff`, {
                     </td>
                 </tr>
                 `;
-    })
-    .catch(error => {
-        console.log("Lỗi", error.message);
-        alert(`Cap nhat that jvjvjbai`);
-    })
+        })
+        .catch(error => {
+            console.log("Lỗi", error.message);
+            alert(`Cap nhat that jvjvjbai`);
+        })
 }
 
 //tìm kiếm gói tập
@@ -233,7 +236,7 @@ function filterStaff() {
                         <th th:text="${staff.status}"></th>
                         <td>
                             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                th:attr="onclick='showInforStaff(' + ${staff.ID} + ')'">
+                                th:attr="onclick='showInforStaff(' + ${staff.id} + ')'">
                                 ...
                             </button>
                         </td>

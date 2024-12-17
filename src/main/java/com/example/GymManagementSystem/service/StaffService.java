@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.GymManagementSystem.DTO.StaffDTO;
+import com.example.GymManagementSystem.entity.PersonalTrainer;
 import com.example.GymManagementSystem.entity.PositionInformation;
 import com.example.GymManagementSystem.entity.Staff;
 import com.example.GymManagementSystem.entity.StaffRole;
+import com.example.GymManagementSystem.repository.PersonalTrainerRepository;
 import com.example.GymManagementSystem.repository.StaffRepository;
 import com.example.GymManagementSystem.repository.StaffRoleRepository;
 
@@ -27,6 +29,9 @@ public class StaffService {
 
     @Autowired
     private StaffRoleRepository staffRoleRepository;
+
+    @Autowired
+    private PersonalTrainerRepository personalTrainerRepository;
 
     @Autowired
     private PositionInformationService positionInformationService;
@@ -105,6 +110,8 @@ public class StaffService {
                 return response;
             }
 
+            
+
             // Lưu staff vào database
             Staff savedStaff = staffRepository.save(staff);
 
@@ -116,6 +123,11 @@ public class StaffService {
             staffRole.setStaff(savedStaff);
 
             staffRoleRepository.save(staffRole);
+
+            if(staffRole.getPositionInformation().getID() == 1){
+                PersonalTrainer pt = new PersonalTrainer(savedStaff);
+                personalTrainerRepository.save(pt);
+            }
 
             // Trả về kết quả thành công
             response.put("success", true);
@@ -132,6 +144,8 @@ public class StaffService {
     public Map<String, Object> updateStaff(Staff staff) {
         Map<String, Object> response = new HashMap<>();
         try {
+            Staff existStaff = staffRepository.findStaffByID(staff.getID());
+            staff.setImage_url(existStaff.getImage_url());
             response.put("data", staffRepository.save(staff));
             StaffRole staffRole = staffRoleRepository.findActiveStaffRoleById(staff.getID());
             if (!staffRole.getPositionInformation().getRole().equals(staff.getRole())) {
@@ -140,14 +154,16 @@ public class StaffService {
                 staffRoleRepository.unactiveStaffRole(staffRole.getID());
 
                 // lưu vai trò mới
-                StaffRole newStaffRole = new StaffRole();
-                PositionInformation positionInformation = staffRole.getPositionInformation();
-                positionInformation.setRole(staff.getRole());
-                newStaffRole.setCreate_date(LocalDate.now());
-                newStaffRole.setPositionInformation(positionInformation);
-                newStaffRole.setStaff(staff);
-                newStaffRole.setStatus("Active");
+                
+                PositionInformation positionInformation = (PositionInformation) positionInformationService.getPositionInformationByRole(staff.getRole()).get("data");
+                StaffRole newStaffRole = new StaffRole(staff, positionInformation, LocalDate.now(), "Active");
                 staffRoleRepository.save(newStaffRole);
+
+                if(staffRole.getPositionInformation().getID() == 1 || staffRole.getPositionInformation().getID() == 5){
+                    PersonalTrainer pt = new PersonalTrainer(newStaffRole.getStaff());
+                    System.out.println("Lưu thành công");
+                    personalTrainerRepository.save(pt);
+                }
             }
             response.put("success", true);
             response.put("message", "Staff updated successfully");
@@ -168,7 +184,6 @@ public class StaffService {
                 Staff staff = staffRole.getStaff();
                 staff.setRole(staffRole.getPositionInformation().getRole());
                 staff.setStatus(staffRole.getStatus());
-                System.out.println(staffRole.getStatus());
                 staffs.add(staff);
             }
 

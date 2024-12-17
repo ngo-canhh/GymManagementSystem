@@ -21,5 +21,5 @@ public interface PersonalTrainerRepository extends JpaRepository<PersonalTrainer
     List<PersonalTrainer> findPersonalTrainerByCategoryAndField(@Param("category") int category, @Param("field") String field);
 
     @Query("SELECT pt FROM PersonalTrainer pt WHERE pt.ID = :ID")
-    List<PersonalTrainer> findPersonalTrainerById(@Param("ID") int ID);
+    PersonalTrainer findPersonalTrainerById(@Param("ID") int ID);
 }

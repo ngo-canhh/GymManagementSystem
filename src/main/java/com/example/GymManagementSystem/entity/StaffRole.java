@@ -37,6 +37,13 @@ public class StaffRole {
     @Column(name = "create_date")
     private LocalDate create_date;
 
+    public StaffRole(Staff staff, PositionInformation positionInformation, LocalDate create_date, String status) {
+        this.staff = staff;
+        this.positionInformation = positionInformation;
+        this.create_date = create_date;
+        this.status = status;
+    }
+
     @Column(name = "status")
     private String status;
 

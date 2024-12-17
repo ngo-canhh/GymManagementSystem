@@ -18,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
     @Query("SELECT p FROM Product p WHERE p.ID= :ID")
     Product findProductById(@Param("ID") int ID);
 
-    @Query("SELECT p FROM Product p WHERE p.name = :name OR :name = ''")
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %:name% OR :name = ''")
     List<Product> findAllProductsByName(@Param("name") String name);
 
     @Query("SELECT p FROM Product p WHERE (p.entry_date = :entry_date OR :entry_date IS NULL) AND (p.expiry_date = :expiry_date OR :expiry_date IS NULL) AND (p.status = :status OR :status = 'all')")

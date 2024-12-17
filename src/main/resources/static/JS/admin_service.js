@@ -154,7 +154,7 @@ function updateService() {
 document.getElementById("searchForm").addEventListener("submit", function (event) {
     event.preventDefault(); //chặn gửi form mặc định
 
-    const query = document.getElementById("searchInput").value;
+    const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
     //thêm url 
     fetch(`/admin/service/searchService?IDOrName=${encodeURIComponent(query)}`)

@@ -30,7 +30,7 @@
                         <li class="nav-item"><a href="/admin/staff" class="nav-link">Nhân viên</a></li>
                         <li class="nav-item"><a href="/admin/equipment" class="nav-link">Thiết bị</a></li>
                         <li class="nav-item"><a href="/admin/product" class="nav-link">Sản phẩm</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Huấn luyện viên</a></li>
+                        <li class="nav-item"><a href="/admin/pt" class="nav-link">Huấn luyện viên</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Doanh số</a></li>
                     </ul>
                 </div>
@@ -113,44 +113,38 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3 row">
-                        <label for="inputServiceName" class="col-sm-2 col-form-label">Tên gói tập</label>
-                        <div class="col-sm-10">
+                        <label for="inputServiceName" class="col-sm-3 col-form-label">Tên gói tập:</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="inputServiceName" name="name">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="inputCategory" class="col-sm-2 col-form-label">Loại</label>
-                        <div class="col-sm-10">
+                        <label for="inputCategory" class="col-sm-2 col-form-label">Loại:</label>
+                        <div class="col-sm-4">
                             <input type="text" class="form-control" id="inputCategory" name="category">
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputSalePrice" class="col-sm-2 col-form-label">Giá bán</label>
-                        <div class="col-sm-10">
+                        <label for="inputSalePrice" class="col-sm-2 col-form-label">Giá bán:</label>
+                        <div class="col-sm-4">
                             <input type="number" class="form-control" id="inputSalePrice" name="sale_price">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="inputPTPersentage" class="col-sm-2 col-form-label">PT Persentage</label>
-                        <div class="col-sm-10">
+                        <label for="inputPTPersentage" class="col-sm-3 col-form-label">PT Percent:</label>
+                        <div class="col-sm-3">
                             <input type="number" class="form-control" id="inputPTPersentage" name="pt_persentage">
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputGymPersentage" class="col-sm-2 col-form-label">Gym Persentage</label>
-                        <div class="col-sm-10">
+                        <label for="inputGymPersentage" class="col-sm-3 col-form-label">Gym Percent:</label>
+                        <div class="col-sm-3">
                             <input type="number" class="form-control" id="inputGymPersentage" name="gym_persentage">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="inputNumberSession" class="col-sm-2 col-form-label">Số buổi</label>
-                        <div class="col-sm-10">
+                        <label for="inputNumberSession" class="col-sm-2 col-form-label">Số buổi:</label>
+                        <div class="col-sm-4">
                             <input type="number" class="form-control" id="inputNumberSession" name="number_of_sessions">
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputFrequency" class="col-sm-2 col-form-label">Tấn suất</label>
-                        <div class="col-sm-10">
+                        <label for="inputFrequency" class="col-sm-2 col-form-label">Tấn suất:</label>
+                        <div class="col-sm-4">
                             <input type="number" class="form-control" id="inputFrequency" name="frequency">
                         </div>
                     </div>
@@ -161,8 +155,8 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="inputStatus" class="col-sm-2 col-form-label">Trạng thái: </label>
-                        <div class=" col-sm-10">
+                        <label for="inputStatus" class="col-sm-3 col-form-label">Trạng thái: </label>
+                        <div class=" col-sm-9">
                             <select name="" id="inputStatus" class="form-select">
                                 <option value="Hoạt động">Hoạt động</option>
                                 <option value="Ngừng hoạt động">Ngừng hoạt động</option>
@@ -191,62 +185,56 @@
                 <!-- Body -->
                 <div class="modal-body" id="serviceDetails">
                     <div class="mb-3 row">
-                        <label for="serviceID" class="col-sm-2 col-form-label">Mã gói tập</label>
-                        <div class="col-sm-10">
+                        <label for="serviceID" class="col-sm-4 col-form-label">Mã gói tập:</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" id="serviceID" name="ID" disabled>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="serviceName" class="col-sm-2 col-form-label">Tên gói tập</label>
-                        <div class="col-sm-10">
+                        <label for="serviceName" class="col-sm-4 col-form-label">Tên gói tập:</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" id="serviceName" name="name">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="category" class="col-sm-2 col-form-label">Loại</label>
-                        <div class="col-sm-10">
+                        <label for="category" class="col-sm-2 col-form-label">Loại:</label>
+                        <div class="col-sm-4">
                             <input type="text" class="form-control" id="category" name="category">
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="salePrice" class="col-sm-2 col-form-label">Giá bán</label>
-                        <div class="col-sm-10">
+                        <label for="salePrice" class="col-sm-2 col-form-label">Giá bán:</label>
+                        <div class="col-sm-4">
                             <input type="number" class="form-control" id="salePrice" name="sale_price">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="PTPersentage" class="col-sm-2 col-form-label">PT Persentage</label>
-                        <div class="col-sm-10">
+                        <label for="PTPersentage" class="col-sm-3 col-form-label">PT Percent:</label>
+                        <div class="col-sm-3">
                             <input type="number" class="form-control" id="PTPersentage" name="pt_persentage">
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="GymPersentage" class="col-sm-2 col-form-label">Gym Persentage</label>
-                        <div class="col-sm-10">
+                        <label for="GymPersentage" class="col-sm-3 col-form-label">Gym Percent:</label>
+                        <div class="col-sm-3">
                             <input type="number" class="form-control" id="GymPersentage" name="gym_persentage">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="NumberSession" class="col-sm-2 col-form-label">Số buổi</label>
-                        <div class="col-sm-10">
+                        <label for="NumberSession" class="col-sm-3 col-form-label">Số buổi:</label>
+                        <div class="col-sm-3">
                             <input type="number" class="form-control" id="NumberSession" name="number_of_sessions">
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="Frequency" class="col-sm-2 col-form-label">Tấn suất</label>
-                        <div class="col-sm-10">
+                        <label for="Frequency" class="col-sm-3 col-form-label">Tấn suất:</label>
+                        <div class="col-sm-3">
                             <input type="number" class="form-control" id="Frequency" name="frequency">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="Description" class="col-sm-2 col-form-label">Mô tả</label>
-                        <div class="col-sm-10">
+                        <label for="Description" class="col-sm-3 col-form-label">Mô tả:</label>
+                        <div class="col-sm-9">
                             <textarea class="input-group" rows="3" name="description" id="Description"></textarea>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="status" class="col-sm-2 col-form-label">Trạng thái: </label>
-                        <div class="col-sm-10">
+                        <label for="status" class="col-sm-3 col-form-label">Trạng thái: </label>
+                        <div class="col-sm-9">
                             <select name="status" id="status" class="form-select">
                                 <option value="Hoạt động">Hoạt động</option>
                                 <option value="Ngừng hoạt động">Ngừng hoạt động</option>
