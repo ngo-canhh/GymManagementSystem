@@ -83,8 +83,7 @@
                         <td th:text="${service.sale_price}"></td>
                         <td th:text="${service.status}"></td>
                         <td>
-                            <button type="button" class="btn" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                 th:attr="onclick='showInforService(' + ${service.ID} + ')'">
                                 ...
                             </button>
@@ -251,6 +250,43 @@
             </div>
         </div>
     </div>
+    <footer class="bg-dark text-white py-4 mt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-uppercase">Về chúng tôi</h5>
+                    <p>SoftGym cung cấp dịch vụ thể hình chất lượng cao với đội ngũ huấn luyện viên chuyên nghiệp. Chúng
+                        tôi luôn nỗ lực mang lại sức khỏe và sự thoải mái cho khách hàng.</p>
+                </div>
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-uppercase">Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-geo-alt"></i> Địa chỉ: Số 123, Đường ABC, TP. HCM</li>
+                        <li><i class="bi bi-phone"></i> Điện thoại: 0123456789</li>
+                        <li><i class="bi bi-envelope"></i> Email: support@softgym.com</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="d-flex justify-content-center">
+                        <h5 class="text-uppercase">Theo dõi chúng tôi</h5>
+                    </div>
+                    <ul class="list-unstyled d-flex justify-content-center">
+                        <li class="me-3"><a href="https://www.facebook.com/ngoCanh.1510204" class="text-white"><i
+                                    class="bi bi-facebook"></i></a></li>
+                        <li class="me-3"><a href="https://www.facebook.com/chicgtligg" class="text-white"><i
+                                    class="bi bi-twitter"></i></a></li>
+                        <li class="me-3"><a href="https://www.facebook.com/vu.cuong.11150" class="text-white"><i
+                                    class="bi bi-instagram"></i></a></li>
+                        <li><a href="#" class="text-white"><i class="bi bi-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <p class="mb-0">&copy; 2024 SoftGym. Tất cả quyền được bảo vệ.</p>
+        </div>
+    </footer>
+    
     <script src="/JS/admin_service.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

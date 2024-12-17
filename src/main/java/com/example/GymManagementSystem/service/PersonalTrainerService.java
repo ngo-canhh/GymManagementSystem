@@ -97,7 +97,9 @@ public class PersonalTrainerService {
                         ptServiceService.addPTService(ptService);
                     }
                 }
-                response.put("data", ptServiceService.getAllServicesOfPTByID(pTrainer.getID()));
+                PersonalTrainer newPT = personalTrainerRepository.save(pTrainer);
+                newPT.setServices(newServiceList);
+                response.put("data", newPT);
                 response.put("success", true);
             } else {
                 response.put("success", false);

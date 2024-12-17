@@ -144,12 +144,12 @@ public class StaffService {
     public Map<String, Object> updateStaff(Staff staff) {
         Map<String, Object> response = new HashMap<>();
         try {
-            Staff existStaff = staffRepository.findStaffByID(staff.getID());
-            staff.setImage_url(existStaff.getImage_url());
+            staff.setImage_url(staffRepository.findStaffByID(staff.getID()).getImage_url());
             response.put("data", staffRepository.save(staff));
-            StaffRole staffRole = staffRoleRepository.findActiveStaffRoleById(staff.getID());
+            StaffRole staffRole = staffRoleRepository.findActiveStaffRoleById(staff.getID());//xem hiện tại đang lam chức vụ j
+            //nếu thay đổi chức vụ
             if (!staffRole.getPositionInformation().getRole().equals(staff.getRole())) {
-
+                System.out.println("thay đổi chức vụ");
                 // unactive vai trò cũ
                 staffRoleRepository.unactiveStaffRole(staffRole.getID());
 
@@ -159,7 +159,8 @@ public class StaffService {
                 StaffRole newStaffRole = new StaffRole(staff, positionInformation, LocalDate.now(), "Active");
                 staffRoleRepository.save(newStaffRole);
 
-                if(staffRole.getPositionInformation().getID() == 1 || staffRole.getPositionInformation().getID() == 5){
+                //nếu chức vụ mới là huấn luyện viên
+                if(newStaffRole.getPositionInformation().getID() == 1){
                     PersonalTrainer pt = new PersonalTrainer(newStaffRole.getStaff());
                     System.out.println("Lưu thành công");
                     personalTrainerRepository.save(pt);

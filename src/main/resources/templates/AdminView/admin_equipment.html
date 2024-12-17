@@ -47,9 +47,9 @@
             <h3>Danh sách thiết bị</h3>
         </div>
         <div class="container my-2 d-flex">
-                <input class="form-control me-2" id="searchInput" type="search" placeholder="Nhập tên thiết bị... "
-                    aria-label="Search">
-                <button class="btn btn-outline-success" type="button" onclick="searchEquipment()">Search</button>
+            <input class="form-control me-2" id="searchInput" type="search" placeholder="Nhập tên thiết bị... "
+                aria-label="Search">
+            <button class="btn btn-outline-success" type="button" onclick="searchEquipment()">Search</button>
         </div>
         <div class="container">
             <table class="table table-hover">
@@ -74,16 +74,16 @@
                             <option value="Johnson Health">Johnson Health</option>
                         </select>
                     </th>
-                    
+
                     <th><button class="btn btn-dark">Ngày mua</button></th>
                     <th><button class="btn btn-dark">Giá mua</button></th>
                     <th><button class="btn btn-dark">Bảo hành</button></th>
                     <th><button class="btn btn-dark">Số lượng</button></th>
                     <th><select class="btn btn-dark" name="filterStatus" id="filterStatus">
-                        <option value="all">Trạng thái</option>
-                        <option value="Hoạt động">Hoạt động</option>
-                        <option value="Bảo trì">Bảo trì</option>
-                    </select></th>
+                            <option value="all">Trạng thái</option>
+                            <option value="Hoạt động">Hoạt động</option>
+                            <option value="Bảo trì">Bảo trì</option>
+                        </select></th>
                     <th>
                         <select class="btn btn-dark" name="filterPosition" id="filterPosition">
                             <option value="all">Tất cả</option>
@@ -94,7 +94,7 @@
                             <option value="Khu vực Tập Sức Mạnh">Khu vực Tập Sức Mạnh</option>
                         </select>
                     </th>
-                    
+
                     <th><button class="btn btn-dark" onclick="filterEquipment()">Lọc</button></th>
                 </thead>
                 <tbody id="tableBody">
@@ -116,7 +116,7 @@
                         </td>
                         <!-- Cột Buy Date -->
                         <td style="width: 10%;">
-                            <input class="form-control form-control-sm"  type="date" th:value="${equipment.buy_date}"
+                            <input class="form-control form-control-sm" type="date" th:value="${equipment.buy_date}"
                                 name="buy_date">
                         </td>
                         <!-- Cột Purchase Price (Ngắn hơn) -->
@@ -145,7 +145,7 @@
                                 </option>
                             </select>
                         </td>
-                        
+
                         <!-- Cột Position -->
                         <td style="width: 10%;">
                             <input class="form-control form-control-sm" type="text" th:value="${equipment.position}"
@@ -166,6 +166,43 @@
             <button class="btn btn-dark" onclick="addNewRow()">Thêm</button>
         </div>
     </div>
+
+    <footer class="bg-dark text-white py-4 mt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-uppercase">Về chúng tôi</h5>
+                    <p>SoftGym cung cấp dịch vụ thể hình chất lượng cao với đội ngũ huấn luyện viên chuyên nghiệp. Chúng
+                        tôi luôn nỗ lực mang lại sức khỏe và sự thoải mái cho khách hàng.</p>
+                </div>
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-uppercase">Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-geo-alt"></i> Địa chỉ: Số 123, Đường ABC, TP. HCM</li>
+                        <li><i class="bi bi-phone"></i> Điện thoại: 0123456789</li>
+                        <li><i class="bi bi-envelope"></i> Email: support@softgym.com</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="d-flex justify-content-center">
+                        <h5 class="text-uppercase">Theo dõi chúng tôi</h5>
+                    </div>
+                    <ul class="list-unstyled d-flex justify-content-center">
+                        <li class="me-3"><a href="https://www.facebook.com/ngoCanh.1510204" class="text-white"><i
+                                    class="bi bi-facebook"></i></a></li>
+                        <li class="me-3"><a href="https://www.facebook.com/chicgtligg" class="text-white"><i
+                                    class="bi bi-twitter"></i></a></li>
+                        <li class="me-3"><a href="https://www.facebook.com/vu.cuong.11150" class="text-white"><i
+                                    class="bi bi-instagram"></i></a></li>
+                        <li><a href="#" class="text-white"><i class="bi bi-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <p class="mb-0">&copy; 2024 SoftGym. Tất cả quyền được bảo vệ.</p>
+        </div>
+    </footer>
 
     <script src="/JS/admin_equipment.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
