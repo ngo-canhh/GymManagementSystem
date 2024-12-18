@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -14,9 +15,6 @@ public class FitnessSessionService {
 
     @Autowired
     private FitnessSessionRepository fitnessSessionRepository;
-
-    @Autowired
-    private CustomerServiceRepository customerServiceRepository;
     @Autowired
     private PersonalTrainerServiceRepository personalTrainerServiceRepository;
     @Autowired
@@ -33,9 +31,9 @@ public class FitnessSessionService {
         if(personalTrainers.size() == 0){
            return null;
         }
-        List<Integer> trainerIds = personalTrainers.stream()
-                .map(pts -> pts.getPersonalTrainer().getStaff().getID())
-                .toList();
+        // List<Integer> trainerIds = personalTrainers.stream()
+        //         .map(pts -> pts.getPersonalTrainer().getStaff().getID())
+        //         .toList();
         // Lấy danh sách các khung giờ đã được đặt của các PT trong gói tập trong ngày
         List<Integer> occupiedTimeSlots = fitnessSessionRepository.findByDate(date).stream()
                 .filter(session -> personalTrainers.stream().anyMatch(pts -> pts.getPersonalTrainer().getStaff().getID() == 
@@ -48,9 +46,28 @@ public class FitnessSessionService {
         List<TimeSlot> availableTimeSlots = allTimeSlots.stream().filter(slot -> !occupiedTimeSlots.contains(slot.getId())).toList();
       return availableTimeSlots;
     }
+
     public FitnessSession createFitnessSession(FitnessSession session){
-      return fitnessSessionRepository.save(session);
+      try {
+        System.out.println(session.getDate());
+        FitnessSession f = fitnessSessionRepository.save(session);
+        System.out.println(Objects.nonNull(f));
+        return f;
+      } catch (Exception e) {
+        return null;
+      }
     }
+
+    public List<FitnessSession> createFitnessSessions(List<FitnessSession> sessions){
+        try {
+
+          List<FitnessSession> f = fitnessSessionRepository.saveAll(sessions);
+          return f;
+        } catch (Exception e) {
+          return null;
+        }
+      }
+
     public Optional<FitnessSession> updateFitnessSession(FitnessSession session, Integer id){
         return fitnessSessionRepository.findById(id).map(fitnessSession -> {
             fitnessSession.setCustomerService(session.getCustomerService());
