@@ -12,7 +12,6 @@ import com.example.GymManagementSystem.service.TimeSlotService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import org.eclipse.angus.mail.imap.protocol.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
