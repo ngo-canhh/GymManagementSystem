@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.example.GymManagementSystem.entity.Customer;
 import com.example.GymManagementSystem.repository.CustomerRepository;
+import com.example.GymManagementSystem.repository.CustomerServiceRepository;
 
 @Service
 public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private CustomerServiceRepository customerServiceRepository;
 
     public List<Customer> getAllCustomers() {
         return customerRepository.findAllCustomers();
@@ -78,5 +82,9 @@ public class CustomerService {
             respone.put("message", e.getMessage());
         }
         return respone;
+    }
+
+    public List<com.example.GymManagementSystem.entity.CustomerService> getCustomerServiceByCustomer(Customer customer){
+        return customerServiceRepository.findByCustomer(customer);
     }
 }

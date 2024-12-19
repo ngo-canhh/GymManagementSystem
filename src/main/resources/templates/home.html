@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link href="../static/css/home.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>SoftGym</title>
 </head>
@@ -16,7 +16,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Dịch Vụ</a></li>
+                <li><a th:href="@{/service}">Dịch Vụ</a></li>
                 <li><a href="#">Lịch Tập</a></li>
                 <li><a href="#">Chính Sách Giá</a></li>
                 <li><a href="#">CLB</a></li>
@@ -42,8 +42,19 @@
 
     <div style="background-color: gray;" class="mt-1">
         <div class="row mt-2" style="padding: 15px 20px;">
+            <style>
+                .card {
+                
+                    background-size: cover; /* Bao phủ toàn bộ thẻ mà không bị méo hình */
+                    background-position: center; /* Hiển thị phần trung tâm của ảnh */
+                    background-repeat: no-repeat; /* Không lặp lại hình ảnh */
+                    width: 100%; /* Đảm bảo chiều rộng phù hợp */
+                    height: 450px; /* Đặt chiều cao tùy ý hoặc phù hợp với nội dung */
+                    border-radius: 10px; /* Bo góc cho đẹp, tùy chỉnh */
+                }
+            </style>
             <div class="col">
-                <div class="card" style="background-image: url('');">
+                <div class="card" style="background-image: url('/images/yoga.png');">
                     <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -53,7 +64,7 @@
             </div>
 
             <div class="col">
-                <div class="card" style="background-image: url('');">
+                <div class="card" style="background-image: url('/images/persionalTrainer.png');">
                     <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -63,7 +74,7 @@
             </div>
 
             <div class="col">
-                <div class="card" style="background-image: url('');">
+                <div class="card" style="background-image: url('/images/boxing.png');">
                     <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -73,7 +84,7 @@
             </div>
 
             <div class="col">
-                <div class="card" style="background-image: url('');">
+                <div class="card" style="background-image: url('/images/other.png');">
                     <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -83,36 +94,42 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <a href="#" class="btn" style="text-align: center; margin-top: 0; border-radius: 20px; background-color: red; padding: 10px 30px; align-items: center; color: antiquewhite;"><b>Xem thêm →</b></a>
+            <a th:href="@{/service}" class="btn" style="text-align: center; margin-top: 0; border-radius: 20px; background-color: red; padding: 10px 30px; align-items: center; color: antiquewhite;"><b>Xem thêm →</b></a>
         </div>
     </div>
 
     <div class="background-container mt-5">
         <!-- Wrapper để đảm bảo nội dung nằm phía trên lớp phủ -->
-        <div class="container card-wrapper ">
+        <div class="container card-wrapper p-5 ">
             <h2 style="text-align: center; color: aliceblue;"><b>CAU CHUYEN CUA CHUNG TOI</b></h2>
             <p style="text-align: center; color: aliceblue;"><b>Hãy yêu cơ thể hơn mỗi ngày</b></p>
             <div class="row" style="background-color: aliceblue;">
-                <div class="col m-1" >
-                    <div class="card">
-                        <img src="../static/images/image 11.png" class="card-img-top" alt="...">
-                        <h4 class="card-title mt-2" style="text-align: center;"><b>Chế độ ăn tập GYM như nào là tốt nhất</b></h4>
-                        
+                <div class="col m-1 mt-1" >
+                    <div class="card p-2">
+                        <img src="/images/image 11.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title mb-2" style="text-align: center;"><b>Chế độ ăn tập GYM như nào là tốt nhất</b></h4>
+                            
+                        </div>                      
                     </div>
                 </div>
 
                 <div class="col m-1 mt-1" >
-                    <div class="card ">
-                        <img src="../static/images/image 11.png" class="card-img-top" alt="...">
-                        <h4 class="card-title mt-2" style="text-align: center;"><b>Chế độ ăn tập GYM như nào là tốt nhất</b></h4>
+                    <div class="card p-2">
+                        <img src="/images/image 11.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title mb-2" style="text-align: center;"><b>Chế độ ăn tập GYM như nào là tốt nhất</b></h4>
+                        </div>
 
                     </div>
                 </div>
 
                 <div class="col m-1 mt-1" >
-                    <div class="card ">
-                        <img src="../static/images/image 11.png" class="card-img-top" alt="...">
-                        <h4 class="card-title mt-2" style="text-align: center;"><b>Chế độ ăn tập GYM như nào là tốt nhất</b></h4>
+                    <div class="card p-2">
+                        <img src="/images/image 11.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title mb-2" style="text-align: center;"><b>Chế độ ăn tập GYM như nào là tốt nhất</b></h4>
+                        </div>
 
                     </div>
                 </div>
@@ -130,12 +147,12 @@
             </p>
         </div>
         <div class="col-12 col-lg-5">
-            <img src="../static/images/long nach.png" alt="Before & After" style="width: 100%; height: 100%;">
+            <img src="/images/long nach.png" alt="Before & After" style="width: 100%; height: 100%;">
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-12 col-lg-5">
-            <img src="../static/images/bmi.png" alt="Before & After" style=" padding-left: 20%;">
+            <img src="/images/bmi.png" alt="Before & After" style=" padding-left: 20%;">
         </div>
         <div class="col-12 col-lg-7">
             <h5 style="text-align: center; font-size: 23px;"><b>Tính BMI(Chỉ số cơ thể)</b></h5>

@@ -28,6 +28,7 @@ public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
+
     @Column(name = "full_name")
     private String full_name;
 
