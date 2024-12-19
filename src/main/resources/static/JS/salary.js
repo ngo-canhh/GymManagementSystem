@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Lỗi khi gọi API tính lương:', error);
             alert("Có lỗi xảy ra khi tính lương");
-             salaryTable.classList.add('d-none');
+            salaryTable.classList.add('d-none');
         }
     }
 

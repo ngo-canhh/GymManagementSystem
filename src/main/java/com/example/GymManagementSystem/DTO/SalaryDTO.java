@@ -1,24 +1,24 @@
 package com.example.GymManagementSystem.DTO;
 
 public class SalaryDTO {
-    private Integer staffId;  
+    private Integer employeeId;  
     private int month;
     private int year;
-    private double salaryAmount;
+    private double amount;
 
-    public SalaryDTO(Integer staffId, int month, int year, double salaryAmount) {
-        this.staffId = staffId;
+    public SalaryDTO(Integer employeeId, int month, int year, double amount) {
+        this.employeeId = employeeId;
         this.month = month;
         this.year = year;
-        this.salaryAmount = salaryAmount;
+        this.amount = amount;
     }
 
-    public Integer getStaffId() {
-        return staffId;
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     public int getMonth() {
@@ -37,11 +37,11 @@ public class SalaryDTO {
         this.year = year;
     }
 
-    public double getSalaryAmount() {
-        return salaryAmount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setSalaryAmount(double salaryAmount) {
-        this.salaryAmount = salaryAmount;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }
