@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `gym_management_system` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `gym_management_system`;
+-- MySQL dump 10.13  Distrib 8.0.38, for macos14 (arm64)
 --
--- Host: localhost    Database: gym_management_system
+-- Host: 127.0.0.1    Database: gym_management_system
 -- ------------------------------------------------------
--- Server version	9.0.1
+-- Server version	8.0.40
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -156,10 +158,11 @@ CREATE TABLE `customer_service` (
   KEY `FK_customer_service_idx` (`ID_customer`),
   KEY `FK_service_customer_idx` (`ID_service`),
   KEY `FK_bill_service_idx` (`ID_bill`),
+  KEY `ID_customer` (`ID_customer`),
   CONSTRAINT `FK_bill` FOREIGN KEY (`ID_bill`) REFERENCES `bill` (`ID`),
   CONSTRAINT `FK_customer_service` FOREIGN KEY (`ID_customer`) REFERENCES `customer` (`ID`),
   CONSTRAINT `FK_service_customer` FOREIGN KEY (`ID_service`) REFERENCES `personal_trainer_service` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +171,7 @@ CREATE TABLE `customer_service` (
 
 LOCK TABLES `customer_service` WRITE;
 /*!40000 ALTER TABLE `customer_service` DISABLE KEYS */;
-INSERT INTO `customer_service` VALUES (1,1,1,1,100,'2024-12-01 10:00:00','Completed',0),(2,2,3,2,250,'2024-12-01 11:30:00','Completed',0),(3,3,2,3,150,'2024-12-02 09:00:00','Incomplete',3),(4,4,4,4,400,'2024-12-02 14:30:00','Incomplete',4),(5,5,5,5,300,'2024-12-03 08:15:00','Incomplete',5),(6,6,6,9,500,'2024-12-03 17:00:00','Cancelled',4),(7,7,7,10,120,'2024-12-04 13:00:00','Completed',0),(8,1,2,6,200,'2024-12-04 16:00:00','Completed',0),(9,2,5,7,350,'2024-12-05 10:00:00','Completed',0),(10,3,6,8,450,'2024-12-05 12:30:00','Cancelled',8);
+INSERT INTO `customer_service` VALUES (1,1,1,1,100,'2024-12-01 10:00:00','Completed',0),(2,2,3,2,250,'2024-12-01 11:30:00','Completed',0),(3,3,2,3,150,'2024-12-02 09:00:00','Incomplete',3),(4,4,4,4,400,'2024-12-02 14:30:00','Incomplete',4),(5,5,5,5,300,'2024-12-03 08:15:00','Incomplete',5),(6,6,6,9,500,'2024-12-03 17:00:00','Cancelled',4),(7,7,7,10,120,'2024-12-04 13:00:00','Completed',0),(8,1,2,6,200,'2024-12-04 16:00:00','Completed',0),(9,2,5,7,350,'2024-12-05 10:00:00','Completed',0),(10,3,6,8,450,'2024-12-05 12:30:00','Cancelled',8),(11,8,3,1,1000,'2024-12-05 12:30:00','Cancelled',10);
 /*!40000 ALTER TABLE `customer_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,6 +204,39 @@ LOCK TABLES `equipment` WRITE;
 /*!40000 ALTER TABLE `equipment` DISABLE KEYS */;
 INSERT INTO `equipment` VALUES (1,'Treadmill X1000','Life Fitness','Khu vực Cardio','2023-01-10',2500,24,'Bảo trì',1),(2,'Elliptical Trainer E200','Precor','Khu vực Cardio','2022-11-05',1800,18,'Hoạt động',2),(3,'Spin Bike S300','Schwinn','Khu vực Cardio','2023-06-20',1200,12,'Hoạt động',3),(4,'Leg Press Machine','Technogym','Khu vực Strength','2023-03-15',3200,24,'Bảo trì',4),(5,'Dumbbell Set (5-50kg)','Rogue Fitness','Khu vực Free Weights','2022-09-25',1500,36,'Hoạt động',5),(6,'Smith Machine SM500','Matrix','Khu vực Strength','2023-05-12',4000,24,'Hoạt động',6),(7,'Lat Pulldown Machine','Cybex','Khu vực Strength','2023-02-08',2700,18,'Hoạt động',7),(8,'Rowing Machine R700','Concept2','Khu vực Cardio','2022-08-10',1300,24,'Bảo trì',8),(9,'Chest Press Machine','Hammer Strength','Khu vực Strength','2023-07-18',3500,24,'Hoạt động',9),(10,'Yoga Mats Set','Lululemon','Khu vực Yoga','2023-04-05',500,12,'Hoạt động',19),(11,'Máy chạy bộ','TechFitness','Khu vực Cardio','2024-12-10',2500,12,'Hoạt động',3),(12,'Ghế đẩy ngực','BH Fitness','Khu vực Tập Sức Mạnh','2025-01-02',1800,24,'Hoạt động',2),(13,'Xe đạp tập thể dục','Johnson Health','Khu vực Cardio','2024-12-19',1500,18,'Hoạt động',4);
 /*!40000 ALTER TABLE `equipment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fitness_session`
+--
+
+DROP TABLE IF EXISTS `fitness_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fitness_session` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_customer_service` int NOT NULL,
+  `date` date NOT NULL,
+  `ID_time_slot` int NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `n_th_session` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `date` (`date`,`ID_time_slot`),
+  KEY `ID_customer_service` (`ID_customer_service`),
+  KEY `fk_fitness_session_time_slot` (`ID_time_slot`),
+  CONSTRAINT `fitness_session_ibfk_1` FOREIGN KEY (`ID_customer_service`) REFERENCES `customer_service` (`ID`),
+  CONSTRAINT `fk_fitness_session_time_slot` FOREIGN KEY (`ID_time_slot`) REFERENCES `time_slot` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fitness_session`
+--
+
+LOCK TABLES `fitness_session` WRITE;
+/*!40000 ALTER TABLE `fitness_session` DISABLE KEYS */;
+INSERT INTO `fitness_session` VALUES (2,1,'2024-12-15',2,'Phòng gym',2),(6,5,'2024-12-16',2,'Phòng yoga',1),(7,11,'2024-12-16',2,'Phòng yoga',1),(104,11,'2024-12-22',5,'Ha Noi',1),(105,11,'2024-12-21',5,'Ha Noi',2),(106,11,'2024-12-24',5,'Ha Noi',3),(107,11,'2024-12-23',5,'Ha Noi',4),(108,11,'2024-12-29',5,'Ha Noi',5),(109,11,'2024-12-28',5,'Ha Noi',6),(110,11,'2024-12-31',5,'Ha Noi',7),(111,11,'2024-12-30',5,'Ha Noi',8),(112,11,'2025-01-05',5,'Ha Noi',9),(113,11,'2025-01-04',5,'Ha Noi',10),(114,11,'2025-01-07',5,'Ha Noi',11),(115,11,'2025-01-06',5,'Ha Noi',12),(116,11,'2025-01-12',5,'Ha Noi',13),(117,11,'2025-01-11',5,'Ha Noi',14),(118,11,'2025-01-14',5,'Ha Noi',15),(119,11,'2024-12-24',4,'Ha Noi',1),(120,11,'2024-12-23',4,'Ha Noi',2),(121,11,'2024-12-22',4,'Ha Noi',3),(122,11,'2024-12-21',3,'Ha Noi',4),(123,11,'2024-12-31',4,'Ha Noi',5),(124,11,'2024-12-30',4,'Ha Noi',6),(125,11,'2024-12-29',4,'Ha Noi',7),(126,11,'2024-12-28',3,'Ha Noi',8),(127,11,'2025-01-07',4,'Ha Noi',9),(128,11,'2025-01-06',4,'Ha Noi',10),(129,11,'2025-01-05',4,'Ha Noi',11),(130,11,'2025-01-04',3,'Ha Noi',12),(131,11,'2025-01-14',4,'Ha Noi',13),(132,11,'2025-01-13',4,'Ha Noi',14),(133,11,'2025-01-12',4,'Ha Noi',15),(134,11,'2024-12-18',2,'Ha Noi',1),(135,11,'2024-12-20',5,'Ha Noi',2),(136,11,'2024-12-19',3,'Ha Noi',3),(137,11,'2024-12-18',5,'Ha Noi',4),(138,11,'2024-12-25',2,'Ha Noi',5),(139,11,'2024-12-27',5,'Ha Noi',6),(140,11,'2024-12-26',3,'Ha Noi',7),(141,11,'2024-12-25',5,'Ha Noi',8),(142,11,'2025-01-01',2,'Ha Noi',9),(143,11,'2025-01-03',5,'Ha Noi',10),(144,11,'2025-01-02',3,'Ha Noi',11),(145,11,'2025-01-01',5,'Ha Noi',12),(146,11,'2025-01-08',2,'Ha Noi',13),(147,11,'2025-01-10',5,'Ha Noi',14),(148,11,'2025-01-09',3,'Ha Noi',15);
+/*!40000 ALTER TABLE `fitness_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -253,7 +289,7 @@ CREATE TABLE `personal_trainer` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_staff_UNIQUE` (`ID_staff`),
   CONSTRAINT `FK_staff_PT` FOREIGN KEY (`ID_staff`) REFERENCES `staff` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +298,7 @@ CREATE TABLE `personal_trainer` (
 
 LOCK TABLES `personal_trainer` WRITE;
 /*!40000 ALTER TABLE `personal_trainer` DISABLE KEYS */;
-INSERT INTO `personal_trainer` VALUES (1,7,'Dinh dưỡng',5,20,50,'\nHuấn luyện viên cá nhân chuyên về dinh dưỡng giúp khách hàng thiết kế chế độ ăn uống phù hợp với mục tiêu sức khỏe, kết hợp cùng kế hoạch tập luyện để đạt kết quả tối ưu.'),(2,11,'Yoga',4,25,50,'Huấn luyện viên cá nhân chuyên yoga hướng dẫn khách hàng thực hành các động tác yoga, giúp cải thiện sự linh hoạt, sức mạnh, và thư giãn tinh thần. Họ thiết kế các buổi tập phù hợp với nhu cầu và khả năng của từng người.'),(3,12,'Boxing',3,20,40,'Huấn luyện viên cá nhân chuyên boxing dạy các kỹ thuật đấm, phòng thủ và chiến lược trong boxing, giúp cải thiện sức mạnh, sự bền bỉ và kỹ năng chiến đấu của khách hàng. Họ thiết kế các buổi tập để tăng cường thể lực và cải thiện kỹ năng thi đấu.');
+INSERT INTO `personal_trainer` VALUES (1,7,'Dinh dưỡng',5,20,50,'\nHuấn luyện viên cá nhân chuyên về dinh dưỡng giúp khách hàng thiết kế chế độ ăn uống phù hợp với mục tiêu sức khỏe, kết hợp cùng kế hoạch tập luyện để đạt kết quả tối ưu.'),(2,11,'Yoga',4,25,50,'Huấn luyện viên cá nhân chuyên yoga hướng dẫn khách hàng thực hành các động tác yoga, giúp cải thiện sự linh hoạt, sức mạnh, và thư giãn tinh thần. Họ thiết kế các buổi tập phù hợp với nhu cầu và khả năng của từng người.'),(3,12,'Boxing',3,20,40,'Huấn luyện viên cá nhân chuyên boxing dạy các kỹ thuật đấm, phòng thủ và chiến lược trong boxing, giúp cải thiện sức mạnh, sự bền bỉ và kỹ năng chiến đấu của khách hàng. Họ thiết kế các buổi tập để tăng cường thể lực và cải thiện kỹ năng thi đấu.'),(4,24,'Run',3,20,40,'No description');
 /*!40000 ALTER TABLE `personal_trainer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,7 +318,7 @@ CREATE TABLE `personal_trainer_service` (
   KEY `FK_service_idx` (`ID_service`),
   CONSTRAINT `FK_PT` FOREIGN KEY (`ID_PT`) REFERENCES `personal_trainer` (`ID`),
   CONSTRAINT `FK_service` FOREIGN KEY (`ID_service`) REFERENCES `service` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,7 +327,7 @@ CREATE TABLE `personal_trainer_service` (
 
 LOCK TABLES `personal_trainer_service` WRITE;
 /*!40000 ALTER TABLE `personal_trainer_service` DISABLE KEYS */;
-INSERT INTO `personal_trainer_service` VALUES (1,1,1),(2,1,2),(3,1,5),(4,2,2),(5,2,3),(6,2,6),(7,3,4),(8,3,5),(9,3,7);
+INSERT INTO `personal_trainer_service` VALUES (1,1,1),(2,1,2),(3,1,5),(4,2,2),(5,2,3),(6,2,6),(7,3,4),(8,3,5),(9,3,7),(10,4,3);
 /*!40000 ALTER TABLE `personal_trainer_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,6 +513,32 @@ LOCK TABLES `staff_role` WRITE;
 INSERT INTO `staff_role` VALUES (1,7,1,'2024-12-01','Active',NULL),(2,9,2,'2023-11-15','Active',NULL),(3,9,7,'2023-10-20','Unactive',NULL),(4,10,1,'2023-10-10','Unactive',NULL),(5,10,4,'2023-11-11','Active',NULL),(6,11,1,'2023-09-25','Active',NULL),(7,12,1,'2023-11-01','Active',NULL),(8,13,3,'2023-12-05','Active',NULL),(9,14,5,'2023-09-15','Active',NULL),(14,20,2,'2024-12-09','Active',NULL),(15,21,1,'2024-12-09','Active',NULL),(16,23,4,'2024-12-09','Active',NULL),(17,24,1,'2024-12-09','Active',NULL);
 /*!40000 ALTER TABLE `staff_role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `time_slot`
+--
+
+DROP TABLE IF EXISTS `time_slot`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `time_slot` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `start_time` (`start_time`,`end_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `time_slot`
+--
+
+LOCK TABLES `time_slot` WRITE;
+/*!40000 ALTER TABLE `time_slot` DISABLE KEYS */;
+INSERT INTO `time_slot` VALUES (2,'08:00:00','09:00:00'),(3,'09:00:00','10:00:00'),(4,'10:00:00','11:00:00'),(5,'14:00:00','15:00:00');
+/*!40000 ALTER TABLE `time_slot` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -487,4 +549,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-11 14:20:01
+-- Dump completed on 2024-12-18 15:40:33

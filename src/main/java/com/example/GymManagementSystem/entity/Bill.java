@@ -1,5 +1,6 @@
 package com.example.GymManagementSystem.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;

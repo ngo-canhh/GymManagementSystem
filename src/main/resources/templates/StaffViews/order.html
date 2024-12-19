@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order</title>
-    <link rel="stylesheet" href="../../static/StaffViewsCss/order-manage.css" />
+<<<<<<< HEAD
+    <link rel="stylesheet" href="/StaffViewsCss/order-manage.css" />
+=======
+    <link rel="stylesheet" href="StaffViewsCss/order-manage.css" />
+>>>>>>> a4d7310331aeb30142194ea92e03640a69cba5b3
 </head>
 
 <body>
@@ -16,27 +20,27 @@
                 <h2>Invoice Details</h2>
                 <div class="field-row">
                     <label for="order-date">Date: </label>
-                    <input type="date" id="order-date" readonly required />
+                    <input type="date" id="order-date" th:value="${date}" readonly required />
                 </div>
                 <div class="field-row">
                     <label for="customer">Customer: </label>
-                    <select id="customer" required></select>
+                    <select id="customer" ></select>
                 </div>
                 <div class="field-row">
                     <label for="customer-id">Customer Id: </label>
-                    <input type="text" id="customer-id" readonly required />
+                    <input type="number" id="customer-id" />
                 </div>
                 <div class="field-row">
                     <label for="customer-name">Name: </label>
-                    <input type="text" id="customer-name" readonly required />
+                    <input type="text" id="customer-name" />
                 </div>
                 <div class="field-row">
                     <label for="customer-salary">Salary: </label>
-                    <input type="text" id="customer-salary" readonly required />
+                    <input type="text" id="customer-salary"/>
                 </div>
                 <div class="field-row">
                     <label for="customer-address">Address: </label>
-                    <input type="text" id="customer-address" readonly required />
+                    <input type="text" id="customer-address"/>
                 </div>
             </form>
 
@@ -45,11 +49,11 @@
                 <h2>Item Select</h2>
                 <div class="field-row">
                     <label for="item">Item: </label>
-                    <select id="item" required></select>
+                    <input type="text" id="item-name" required />
                 </div>
                 <div class="field-row">
                     <label for="item-code">Item Code: </label>
-                    <input type="text" id="item-code" readonly required />
+                    <input type="number" id="item-code" required />
                 </div>
                 <div class="field-row">
                     <label for="price">Price: </label>
@@ -57,7 +61,7 @@
                 </div>
                 <div class="field-row">
                     <label for="ordered-qty">Ordered Quantity: </label>
-                    <input type="number" id="ordered-qty" required />
+                    <input type="number" id="quantity" required />
                 </div>
                 <button class="red-btn" id="add-item">Add Item</button>
             </form>
@@ -71,13 +75,32 @@
                 </div>
                 <div class="field-row">
                     <label for="balance">Balance: </label>
-                    <input type="number" id="balance" readonly required />
+                    <input type="number" id="balance" readonly/>
+                </div>
+                <div class="field-row">
+                    <label for="staff">ID Staff: </label>
+                    <input type="number" id="staff-id" required />
                 </div>
                 <div class="balance-row">
                     <label>Total: </label>
                     <span id="total">000 VND</span>
                 </div>
-                <button class="green-btn" id="btn-purchase">Purchase</button>
+                <div class="button-container">
+                    <style>
+                        .button-container {
+                            display: flex; /* Đặt các button trong cùng một hàng ngang */
+                            justify-content: space-between; /* Điều chỉnh khoảng cách giữa các button */
+                            gap: 10px; /* Khoảng cách giữa các button */
+                        }
+
+                        .green-btn {
+                            flex: 1; /* Bạn có thể chọn điều chỉnh các button này theo kích thước bạn muốn */
+                        }
+                    </style>
+                    <button class="green-btn" id="btn-purchase">Thanh toán bằng tiền mặt</button>
+                    <button class="green-btn mt-2 pt-2" id="btn-purchase-card">Thanh toán bằng thẻ</button>
+                </div>
+                
             </form>
         </div>
 
@@ -86,16 +109,20 @@
                 <thead>
                     <tr>
                         <th>Item Id</th>
-                        <th>Description</th>
+                        <th>Item-Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+
+                </tbody>
             </table>
         </div>
     </div>
 </body>
+<script src="/js/make_order.js"></script>
 
 </html>

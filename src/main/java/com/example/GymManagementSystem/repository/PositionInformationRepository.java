@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.GymManagementSystem.entity.PositionInformation;
 
 @Repository
-public interface PositionInformationRepository extends JpaRepository<PositionInformation, Long> {
+public interface PositionInformationRepository extends JpaRepository<PositionInformation, Integer> {
     @Query("SELECT pi FROM PositionInformation pi WHERE pi.role = :role")
     PositionInformation findPositionInformationByRole(@Param("role") String role);
 }
