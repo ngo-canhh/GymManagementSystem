@@ -49,3 +49,32 @@ public class Service {
     @Column(name = "status")
     private String status;
 }
+
+// import jakarta.persistence.*;
+// import lombok.Data;
+// @Entity
+// @Table(name = "service")
+// @Data
+// public class Service {
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Integer id;
+//     @Column(name="name", nullable = false)
+//     private String name;
+//     @Column(name="category", nullable = false)
+//     private String category;
+//     @Column(name = "sale_price", nullable = false)
+//     private Double salePrice;
+//     @Column(name="numer_of_session", nullable = false)
+//     private Integer numberOfSession;
+//     @Column(name="frequency", nullable = false)
+//     private Integer frequency;
+//     @Column(name="description", columnDefinition = "LONGTEXT")
+//     private String description;
+//     @Column(name="pt_persentage", nullable = false)
+//     private Double ptPersentage;
+//     @Column(name="gym_persentage", nullable = false)
+//     private Double gymPersentage;
+//     @Column(name = "status", nullable = false)
+//     private String status;
+// }

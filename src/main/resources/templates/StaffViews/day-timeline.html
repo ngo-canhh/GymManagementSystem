@@ -13,24 +13,28 @@
         <thead>
             <tr>
                 <th>Customer</th>
+                <th>Phone Number</th>
                 <th>Trainer</th>
                 <th>Begin Time</th>
                 <th>End Time</th>
                 <th>Location</th>
+                <th>Session Details</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Lặp qua các sections -->
-            <tr th:each="section : ${sections}">
-                <td th:text="${section.customer.name}">Customer Name</td>
-                <td th:text="${section.trainer.name}">Trainer Name</td>
-                <td th:text="${#temporals.format(section.begin, 'HH:mm')}">Begin Time</td>
-                <td th:text="${#temporals.format(section.end, 'HH:mm')}">End Time</td>
-                <td th:text="${section.location}">Location</td>
+            <!-- Lặp qua các fitness sessions -->
+            <tr th:each="fitnessSession : ${fitnessSessions}">
+                <td th:text="${fitnessSession.customerName}">Customer Name</td>
+                <td th:text="${fitnessSession.customerPhoneNumber}"></td>
+                <td th:text="${fitnessSession.ptName}">Trainer Name</td>
+                <td th:text="${fitnessSession.formattedStartTime}">Begin Time</td>
+                <td th:text="${fitnessSession.formattedEndTime}">End Time</td>
+                <td th:text="${fitnessSession.location}">Location</td>
+                <td th:text="${'Session: ' + fitnessSession.nthSession}">Session Details</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="/schedule">Back to Schedule</a>
+    <a th:href="@{/staff/schedule}">Back to Schedule</a>
 </body>
 </html>

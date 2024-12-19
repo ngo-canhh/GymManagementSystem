@@ -71,7 +71,8 @@
                         <p class="text-muted"><del>3,000,000 VNĐ</del></p>
                     </div>
                     <div class="col-6">
-                        <button class="btn btn-lg btn-primary w-100">Đăng Ký Ngay</button>
+                        <a th:href="@{/service/make-schedule/{id}(id = ${service.ID})}" class="btn btn-lg btn-primary w-100" >Đăng Ký Ngay</a>
+                        <!-- <button class="btn btn-lg btn-primary w-100" id="dk_goitap" th:attr ="onclick='register_service('+ ${service.ID} + ')'">Đăng Ký Ngay</button> -->
                     </div>
                 </div>
             </div>

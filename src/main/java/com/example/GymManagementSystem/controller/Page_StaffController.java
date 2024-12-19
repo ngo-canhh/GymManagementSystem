@@ -2,6 +2,7 @@ package com.example.GymManagementSystem.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public class Page_StaffController {
             bill.setCustomer(customer);
             bill.setStaff(staff);
             bill.setTotal_amount(total);
-            bill.setCreate_date(LocalDate.now());
+            bill.setCreate_date(LocalDateTime.now());
             bill.setPayment_method("Cash");
             bill.setStatus("Pending");
             billRepository.save(bill);

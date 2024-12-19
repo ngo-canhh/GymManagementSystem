@@ -27,8 +27,8 @@ public class CustomerService {
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "ID_staff", referencedColumnName = "ID")
-    private Staff staff;
+    @JoinColumn(name = "ID_customer", referencedColumnName = "ID")
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "ID_service", referencedColumnName = "ID")
@@ -38,9 +38,7 @@ public class CustomerService {
     @JoinColumn(name = "ID_bill", referencedColumnName = "ID")
     private Bill bill;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_customer", referencedColumnName = "ID")
-    private Customer customer;
+    
 
     @Column(name = "purchase_price")
     private double purchase_price;
