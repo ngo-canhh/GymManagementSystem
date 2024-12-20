@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Form</title>
+</head>
+
+<body>
+
+    <h1>Register Form</h1>
+
+    <form action="/auth/register" method="post">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        
+         <label for="confirmPassword">Confirm Password:</label><br>
+         <input type="password" id="confirmPassword" name="confirmPassword"><br><br>
+
+
+        <input type="submit" value="Sign-Up">
+    </form>
+
+    <br>
+    <p>Already registered? <a href="/auth/login">Login here</a> </p>
+
+</body>
+</html>
