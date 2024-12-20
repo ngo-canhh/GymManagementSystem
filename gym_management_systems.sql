@@ -584,4 +584,25 @@ VALUES
 ('Rowing Machine', 'Cardio', 4, 900.00, 'Available', '2023-02-25');
 /*!40000 ALTER TABLE `equipment` ENABLE KEYS */;
 UNLOCK TABLES;
+--- table 'user'
+ CREATE TABLE IF NOT EXISTS `users` (
+     `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_name` VARCHAR(255) NOT NULL,
+  `user_password` VARCHAR(255) NOT NULL
+);
+  --- Table `staff`
+CREATE TABLE `staff` (
+ `id` INT AUTO_INCREMENT PRIMARY KEY,
+ `name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255),
+   `position` VARCHAR(100)
+);
+--- table 'trainer'
+        CREATE TABLE `trainer` (
+      `id` INT AUTO_INCREMENT PRIMARY KEY,
+        `name` VARCHAR(255) NOT NULL,
+
+        `specialization` VARCHAR(255),
+  );
+
 
