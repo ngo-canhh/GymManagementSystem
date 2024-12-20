@@ -550,3 +550,38 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-12-18 15:40:33
+--
+-- Table structure for table `equipment`
+--
+
+DROP TABLE IF EXISTS `equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `equipment` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(128) NOT NULL,
+  `type` VARCHAR(64) NOT NULL,
+  `quantity` INT NOT NULL,
+  `price` DOUBLE NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `purchase_date` DATE NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipment`
+--
+
+LOCK TABLES `equipment` WRITE;
+/*!40000 ALTER TABLE `equipment` DISABLE KEYS */;
+INSERT INTO `equipment` (`name`, `type`, `quantity`, `price`, `status`, `purchase_date`) 
+VALUES
+('Treadmill', 'Cardio', 5, 1200.00, 'In Use', '2022-03-15'),
+('Dumbbell Set', 'Strength', 10, 300.00, 'Available', '2021-11-20'),
+('Stationary Bike', 'Cardio', 3, 800.00, 'Maintenance', '2023-01-10'),
+('Leg Press Machine', 'Strength', 2, 1500.00, 'In Use', '2022-06-30'),
+('Rowing Machine', 'Cardio', 4, 900.00, 'Available', '2023-02-25');
+/*!40000 ALTER TABLE `equipment` ENABLE KEYS */;
+UNLOCK TABLES;
+
