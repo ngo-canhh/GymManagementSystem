@@ -1,20 +1,26 @@
 package com.example.GymManagementSystem.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.GymManagementSystem.entity.Customer;
+import com.example.GymManagementSystem.entity.CustomerLogin;
 import com.example.GymManagementSystem.entity.Service;
 import com.example.GymManagementSystem.repository.CustomerRepository;
 import com.example.GymManagementSystem.repository.ServiceRepository;
+import com.example.GymManagementSystem.service.CustomerLoginService;
 import com.example.GymManagementSystem.service.CustomerService;
 
 import org.springframework.ui.Model;
@@ -29,6 +35,9 @@ public class PageController {
     private CustomerService customerService;
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private CustomerLoginService customerLoginService;
     
     @GetMapping({"/", ""})
     public String home() {
@@ -43,6 +52,15 @@ public class PageController {
     @GetMapping("/register")
     public String register() {
         return "register";
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerCustomer(@RequestBody CustomerLogin customerLogin){
+        Map<String, Object> response = customerLoginService.addNewCustomer(customerLogin);
+        if((boolean) response.get("success")){
+            return ResponseEntity.ok(response.get("data"));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.get("message"));
     }
 
     @GetMapping("/service")

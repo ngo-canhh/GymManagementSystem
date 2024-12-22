@@ -39,6 +39,26 @@ public class FitnessSessionController {
         return new ResponseEntity<>(sessionDTOs, HttpStatus.OK);
     }
 
+    @GetMapping("/remaining-sessions/{customerId}")
+    public ResponseEntity<List<FitnessSessionDTO>> getSessionsByDate(@PathVariable("customerId") Integer customerId) {
+        List<FitnessSession> sessions = fitnessSessionService.getRemainingSessionsByCustomerId(customerId);
+        List<FitnessSessionDTO> sessionDTOs = sessions.stream()
+                            .map(session -> {
+                                FitnessSessionDTO sessionDTO = new FitnessSessionDTO();
+                                sessionDTO.setId(session.getId());
+                                sessionDTO.setCustomerName(session.getCustomerService().getCustomer().getFull_name());
+                                sessionDTO.setCustomerPhoneNumber(session.getCustomerService().getCustomer().getPhonenumber());
+                                sessionDTO.setStartTime(session.getTimeSlot().getStartTime());
+                                sessionDTO.setEndTime(session.getTimeSlot().getEndTime());
+                                sessionDTO.setDate(session.getDate());
+                                sessionDTO.setLocation(session.getLocation());
+                                sessionDTO.setPtName(session.getCustomerService().getPtService().getPersonalTrainer().getStaff().getFull_name());
+                                sessionDTO.setNthSession(session.getNthSession());
+                                return sessionDTO;
+                            }).toList();
+        return new ResponseEntity<>(sessionDTOs, HttpStatus.OK);
+    }
+
     @GetMapping("/available-time-slots/{serviceId}/{date}")
     public ResponseEntity<?> getAvailableTimeSlots(
             @PathVariable("serviceId") Integer serviceId,
