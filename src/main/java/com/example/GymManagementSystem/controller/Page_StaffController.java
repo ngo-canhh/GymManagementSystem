@@ -1,22 +1,18 @@
 package com.example.GymManagementSystem.controller;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.catalina.connector.Response;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.GymManagementSystem.DTO.OrderRequest;
 import com.example.GymManagementSystem.entity.Bill;
 import com.example.GymManagementSystem.entity.Customer;
 import com.example.GymManagementSystem.entity.IteamProductBill;
@@ -27,9 +23,6 @@ import com.example.GymManagementSystem.repository.CustomerRepository;
 import com.example.GymManagementSystem.repository.ItemProductBillRepository;
 import com.example.GymManagementSystem.repository.ProductRepository;
 import com.example.GymManagementSystem.repository.StaffRepository;
-
-import jakarta.mail.FetchProfile.Item;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
