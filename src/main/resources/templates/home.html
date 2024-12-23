@@ -23,13 +23,26 @@
         <nav>
             <ul>
                 <li><a th:href="@{/service}">Dịch Vụ</a></li>
-                <li><a href="/fitness-sessions/remaining-sessions/1">Lịch Tập</a></li>
+                <li><a th:href="@{/fitness-sessions/remaining-sessions/{customerId}(customerId=${customerId})}">Lịch Tập</a></li>
                 <li><a href="#">Chính Sách Giá</a></li>
                 <li><a href="#">CLB</a></li>
                 <li><a href="#">Khuyến Mãi</a></li>
             </ul>
         </nav>
-        <button class="login-btn">Login</button>
+        <a th:href="@{/login}" class="login-btn" sec:authorize="!isAuthenticated()">Login</a>
+        <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+            <li class="nav-item dropdown">
+              <a class="nav-link ms-3  user-info" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="username btn btn-info" th:text="${#authentication.name}"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/admin/service" sec:authorize="hasAnyAuthority('ADMIN')">Trang ADMIN</a></li>
+                <li><a class="dropdown-item" th:href="@{/fitness-sessions/remaining-sessions/{customerId}(customerId=${customerId})}" sec:authorize="hasAnyAuthority('CUSTOMER')">Các khóa đã đăng ký</a></li>
+                
+                <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+              </ul>
+            </li>
+          </ul>
     </header>
 
     <div class="container">
@@ -39,7 +52,7 @@
                 <p class="banner-description">
                     Chúng tôi dùng mọi lỗ lực của mình để giúp bạn yêu cơ thể của mình hơn mỗi ngày.
                 </p>
-                <a href="#" class="btn btn-custom">Tham gia ngay →</a>
+                <!-- <a th:href="@{/login}" class="btn btn-custom">Tham gia ngay →</a> -->
             </div>
         </div>
         <div style="background-color: gray;" class="mt-3">
@@ -74,7 +87,6 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk
                                 of the card's content.</p>
-                            <a href="#" class="btn-custom">Xem ngay</a>
                         </div>
                     </div>
                 </div>
@@ -85,7 +97,6 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk
                                 of the card's content.</p>
-                            <a href="#" class="btn-custom">Xem ngay</a>
                         </div>
                     </div>
                 </div>
@@ -96,7 +107,6 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk
                                 of the card's content.</p>
-                            <a href="#" class="btn-custom">Xem ngay</a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +117,6 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk
                                 of the card's content.</p>
-                            <a href="#" class="btn-custom">Xem ngay</a>
                         </div>
                     </div>
                 </div>
@@ -122,7 +131,7 @@
         <div class="background-container mt-5">
             <!-- Wrapper để đảm bảo nội dung nằm phía trên lớp phủ -->
             <div class="container card-wrapper p-5 ">
-                <h2 style="text-align: center; color: aliceblue;"><b>CAU CHUYEN CUA CHUNG TOI</b></h2>
+                <h2 style="text-align: center; color: aliceblue;"><b>CÂU CHUYỆN CỦA CHÚNG TÔI</b></h2>
                 <p style="text-align: center; color: aliceblue;"><b>Hãy yêu cơ thể hơn mỗi ngày</b></p>
                 <div class="row" style="background-color: aliceblue;">
                     <div class="col m-1 mt-1">

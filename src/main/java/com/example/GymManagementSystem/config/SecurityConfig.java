@@ -28,16 +28,16 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/register", "/js/**", "/css/**", "/images/**").permitAll() // Allow
+                        .requestMatchers("/login", "/register", "/JS/**", "/css/**", "/images/**").permitAll() // Allow
                                                                                                                // login
                                                                                                                // and
                                                                                                                // register
                                                                                                                // pages
                                                                                                                // without
                         // authentication
-                        .requestMatchers("/","/service","/service_detail", "/list_service").permitAll() // Allow the home page without authentication
+                        .requestMatchers("/", "/service_detail", "/service", "/list_service").permitAll() // Allow the home page without authentication
                         .requestMatchers("/admin/**").hasAnyAuthority("ADMIN") // Admin pages require ADMIN role
-                        .requestMatchers("/**").hasAnyAuthority("CUSTOMER") // Customer pages require CUSTOMER role
+                        
                         .anyRequest().authenticated() // Any other requests require authentication
                 )
                 .formLogin(login -> login

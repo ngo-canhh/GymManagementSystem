@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.GymManagementSystem.entity.CustomerLogin;
 
 @Repository
-public interface CustomerLoginRepository extends JpaRepository<CustomerLogin, Long> {
+public interface CustomerLoginRepository extends JpaRepository<CustomerLogin, Integer> {
 
     Optional<CustomerLogin> findByUsername(String usernam);
 }
