@@ -14,7 +14,7 @@ public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int ID;
 
     @ManyToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "id")
@@ -31,11 +31,11 @@ public class Notification {
     }
 
     public int getId() {
-        return id;
+        return ID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int ID) {
+        this.ID = ID;
     }
 
     public Staff getStaff() {

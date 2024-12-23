@@ -32,7 +32,7 @@ public class NotificationService {
     }
 
     public List<Notification> getNotificationsForStaff(int staffId) {
-        return notificationRepository.findByStaffIdOrderByCreatedAtDesc(staffId);
+        return notificationRepository.findByStaff_IDOrderByCreatedAtDesc(staffId);
     }
 
     public void markNotificationAsRead(Integer notificationId) {
