@@ -1,7 +1,9 @@
 package com.example.GymManagementSystem.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.GymManagementSystem.DTO.FitnessSessionDTO;
 import com.example.GymManagementSystem.config.CustomerUserDetails;
 import com.example.GymManagementSystem.entity.Customer;
 import com.example.GymManagementSystem.entity.CustomerLogin;
@@ -24,6 +27,7 @@ import com.example.GymManagementSystem.repository.CustomerRepository;
 import com.example.GymManagementSystem.repository.ServiceRepository;
 import com.example.GymManagementSystem.service.CustomerLoginService;
 import com.example.GymManagementSystem.service.CustomerService;
+import com.example.GymManagementSystem.service.FitnessSessionService;
 
 import org.springframework.ui.Model;
 
@@ -40,6 +44,9 @@ public class PageController {
 
     @Autowired
     private CustomerLoginService customerLoginService;
+
+    @Autowired
+    private FitnessSessionService fitnessSessionService;
     
     @GetMapping({"/", ""})
     public String home(Model model, @AuthenticationPrincipal CustomerUserDetails customerUserDetails) {
@@ -90,12 +97,40 @@ public class PageController {
         return ResponseEntity.ok(services);
     }   
 
-    @GetMapping("/registed_service")
-    public String registed_service(Model model) {
-        Customer customer = customerRepository.findCustomerByID(1);
+    // @GetMapping("/registed_service")
+    // public String registed_service(Model model) {
+    //     Customer customer = customerRepository.findCustomerByID(1);
 
-        model.addAttribute("courses",customerService.getCustomerServiceByCustomer(customer));
-        return "courseInfo";
+    //     model.addAttribute("courses",customerService.getCustomerServiceByCustomer(customer));
+    //     return "courseInfo";
+    // }
+
+        @GetMapping("/registed_service")
+        public String getDayTimeline(
+                                 Model model, @AuthenticationPrincipal CustomerUserDetails customerUserDetails) {
+        
+        int customerId = customerUserDetails.getCustomer().getID();
+        
+        List<FitnessSessionDTO> fitnessSessions = fitnessSessionService.getRemainingSessionsByCustomerId(customerId)
+                .stream()
+                .map(session -> {
+                    FitnessSessionDTO sessionDTO = new FitnessSessionDTO();
+                    sessionDTO.setId(session.getId());
+                    sessionDTO.setCustomerName(session.getCustomerService().getCustomer().getFull_name());
+                    sessionDTO.setCustomerPhoneNumber(session.getCustomerService().getCustomer().getPhonenumber());
+                    sessionDTO.setStartTime(session.getTimeSlot().getStartTime());
+                    sessionDTO.setEndTime(session.getTimeSlot().getEndTime());
+                    sessionDTO.setDate(session.getDate());
+                    sessionDTO.setLocation(session.getLocation());
+                    sessionDTO.setPtName(session.getCustomerService().getPtService().getPersonalTrainer().getStaff().getFull_name());
+                    sessionDTO.setNthSession(session.getNthSession());
+                    return sessionDTO;
+                }).collect(Collectors.toList());
+        model.addAttribute("fitnessSessions", fitnessSessions);
+        // model.addAttribute("day", localDate.getDayOfMonth());
+        // model.addAttribute("month", localDate.getMonthValue());
+        // model.addAttribute("year", localDate.getYear());
+        return "registed";
     }
     
 }

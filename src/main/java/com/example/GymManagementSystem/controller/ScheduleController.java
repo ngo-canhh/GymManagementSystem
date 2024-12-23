@@ -64,6 +64,8 @@ public class ScheduleController {
         return "StaffViews/day-timeline";
     }
 
+    
+
     private List<List<String>> generateCalendar(int month, int year) {
         List<List<String>> weeks = new ArrayList<>();
         LocalDate firstDay = LocalDate.of(year, month, 1);

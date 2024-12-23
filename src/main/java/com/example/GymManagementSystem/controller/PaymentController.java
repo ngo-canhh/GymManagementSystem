@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +23,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.GymManagementSystem.DTO.SessionDTO;
+import com.example.GymManagementSystem.config.CustomerUserDetails;
 import com.example.GymManagementSystem.entity.Bill;
 import com.example.GymManagementSystem.entity.Customer;
+import com.example.GymManagementSystem.entity.CustomerService;
 import com.example.GymManagementSystem.entity.FitnessSession;
 import com.example.GymManagementSystem.entity.IteamProductBill;
+import com.example.GymManagementSystem.entity.PTService;
 import com.example.GymManagementSystem.entity.Product;
 import com.example.GymManagementSystem.entity.Staff;
 import com.example.GymManagementSystem.repository.BillRepository;
 import com.example.GymManagementSystem.repository.CustomerRepository;
+import com.example.GymManagementSystem.repository.CustomerServiceRepository;
 import com.example.GymManagementSystem.repository.ItemProductBillRepository;
+import com.example.GymManagementSystem.repository.PTServiceRepository;
 import com.example.GymManagementSystem.repository.ProductRepository;
 import com.example.GymManagementSystem.repository.StaffRepository;
 import com.example.GymManagementSystem.service.CustomerServiceService;
@@ -64,6 +70,10 @@ public class PaymentController {
     private FitnessSessionService fitnessSessionService;
     @Autowired
     private TimeSlotService timeSlotService;
+    @Autowired
+    private PTServiceRepository ptServiceRepository;
+    @Autowired
+    private CustomerServiceRepository customerServiceRepository;
     // @GetMapping({"", "/"})
     // public String home(){
     // return "createOrder";
@@ -123,7 +133,7 @@ public class PaymentController {
 
     // Sau khi hoàn tất thanh toán, VNPAY sẽ chuyển hướng trình duyệt về URL này
     @GetMapping("/vnpay-payment-return")
-    public String paymentCompleted(HttpServletRequest request, Model model) {
+    public String paymentCompleted(HttpServletRequest request, Model model, @AuthenticationPrincipal CustomerUserDetails customerUserDetails) {
 
         int paymentStatus = vnPayService.orderReturn(request);
         Map<String, Object> orderRequest = (Map<String, Object>) request.getSession().getAttribute("orderRequest");
@@ -138,8 +148,35 @@ public class PaymentController {
                 ))
                 .collect(Collectors.toList());
 
+            com.example.GymManagementSystem.entity.Service service = serviceService
+                .getServiceById(Integer.parseInt(orderRequest.get("serviceId").toString()));
+            int ID_customer = customerUserDetails.getCustomer().getID();
+            Customer customer = customerRepository.findCustomerByID(ID_customer);
             System.out.println("Session size: " + sessions.size());
-            int ID_customer_service =  Integer.parseInt(orderRequest.get("serviceId").toString());
+            CustomerService customerService = new CustomerService();
+            Bill bill = new Bill();
+            
+            bill.setTotal_amount((int)service.getSale_price());
+            bill.setCreate_date(LocalDateTime.now());
+            bill.setPayment_method("Credit Card");
+            bill.setStatus("Pending");
+            bill.setCustomer(customer);
+            bill.setStaff(staffRepository.findStaffByID(7));
+            billRepository.save(bill);
+
+            Bill newBill = billRepository.findBillByCustomerAndStatus(customer, "Pending");
+
+            // com.example.GymManagementSystem.entity.Service service = serviceService.getServiceById((int) orderRequest.get("serviceId"));
+            customerService.setCustomer(customer);
+
+            customerService.setPtService(ptServiceRepository.findById(1).get());
+            customerService.setBill(newBill);
+            customerService.setPurchase_price(service.getSale_price());
+            customerService.setPurchase_date(LocalDate.now());
+            customerService.setStatus("Active");
+            customerService.setRemaining_sessions(sessions.size());
+            int ID_customer_service = customerServiceRepository.save(customerService).getID();
+            // int ID_customer_service =  Integer.parseInt(orderRequest.get("serviceId").toString());
             List<FitnessSession> toSave = new ArrayList<>();
             for (int i = 0; i < sessions.size(); ++i) {
                 SessionDTO session = sessions.get(i);
@@ -156,6 +193,8 @@ public class PaymentController {
                 toSave.add(fitnessSession);
 
             }
+            newBill.setStatus("Completed");
+            billRepository.save(newBill);
 
             fitnessSessionService.createFitnessSessions(toSave);
         }
