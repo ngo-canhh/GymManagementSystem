@@ -16,7 +16,7 @@ public class SalaryController {
 
    @GetMapping("/salaryPage")  
     public String showSalaryPage(){
-        return "admin_salary_calculation";  
+        return "AdminView/admin_salary_calculation";  
     }
 
     @PostMapping("/calculate")
