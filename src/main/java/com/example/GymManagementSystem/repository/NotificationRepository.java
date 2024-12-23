@@ -1,0 +1,9 @@
+package com.example.GymManagementSystem.repository;
+
+import com.example.GymManagementSystem.entity.Notification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface NotificationRepository extends JpaRepository<Notification, Integer> {
+    List<Notification> findByStaffIdOrderByCreatedAtDesc(int staffId);
+}
