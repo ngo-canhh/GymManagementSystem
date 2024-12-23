@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Form</title>
+ <link rel="stylesheet" href="../../static/css/equipment.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create/Edit Equipment</h1>
+
+           <form id="equipment-form"  method="post" enctype="multipart/form-data">
+                <div class="row mb-3">
+                   <label class="col-md-2">Name <span style="color: red">*</span> </label>
+                     <div class="col-md-10">
+                          <input type="text"   class="form-control"   name="name"  required  />
+                        </div>
+                 </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-2">Brand</label>
+                    <div class="col-md-10">
+                            <input type="text" class="form-control"  name="brand" />
+                       </div>
+                </div>
+
+
+               <div class="row mb-3">
+                  <label class="col-md-2">Model</label>
+                  <div class="col-md-10">
+                     <input type="text"  class="form-control"  name="model"/>
+                      </div>
+                </div>
+
+
+                   <div class="row mb-3">
+                       <label class="col-md-2">Serial</label>
+                   <div class="col-md-10">
+                            <input type="text" class="form-control" name="serial_number" />
+                       </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-2">Date of purchase</label>
+                    <div class="col-md-10">
+                        <input class="form-control"  name="date_of_purchase" type="date"  />
+                         </div>
+                  </div>
+
+
+                   <div class="row mb-3">
+                       <label class="col-md-2">Reason for failure</label>
+                      <div class="col-md-10">
+                              <textarea class="form-control" name="reason_for_failure" rows="3"></textarea>
+                     </div>
+                  </div>
+
+                    <div class="row mb-3">
+                        <label class="col-md-2">Missing <span class="text-muted">(Default is no)</span></label>
+                       <div class="col-md-10">
+                            <div class="form-check">
+                                  <input class="form-check-input"  value="1"  name="is_missing"  type="checkbox" id="isMissing"/>
+                            </div>
+                       </div>
+                   </div>
+
+                  <div class="row mb-3">
+                      <label class="col-md-2">Broken <span class="text-muted">(Default is no)</span></label>
+                     <div class="col-md-10">
+                        <div class="form-check">
+                          <input class="form-check-input"  value="1" name="is_broken" type="checkbox"  id="isBroken"/>
+                         </div>
+                       </div>
+                </div>
+
+                <div class="row mb-3">
+                   <label class="col-md-2">Replacement cost</label>
+                    <div class="col-md-10">
+                          <input  class="form-control"  type="number" name="replacement_cost" />
+                      </div>
+                  </div>
+
+               <div class="row mb-3">
+                   <label class="col-md-2">Image</label>
+                  <div class="col-md-10">
+                      <input class="form-control" type="file" name="image" id="image-input" accept="image/*">
+                    </div>
+                </div>
+
+
+             <button type="button" class="btn btn-primary" onclick="saveEquipment(event)">Submit</button>
+                <a class="btn btn-secondary" href="index.html" >Cancel</a>
+        </form>
+    </div>
+      <script src="../../static/js/equipment.js"></script>
+
+      <script>
+        const urlParams = new URLSearchParams(window.location.search);
+          const id = urlParams.get('id');
+           if(id){
+                  loadEditForm(id);
+        }
+     // event khi nhấn cancel trở về
+            document.querySelector('form').addEventListener('keydown', (event)=>{
+               if(event.key == 'Escape'){
+                   window.location.href="index.html";
+              }
+
+        })
+
+
+    </script>
+</body>
+</html>

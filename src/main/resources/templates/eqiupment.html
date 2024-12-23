@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Management</title>
+     <link rel="stylesheet" href="../../static/css/equipment.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Equipment Management</h1>
+           <div class="row justify-content-between align-items-center">
+               <div class="filter-status">
+                <button class="btn active" onclick="filterEquipments('all')">All (<span id="total-count">0</span>)</button>
+                 <button class="btn" onclick="filterEquipments('broken')">Broken (<span id="broken-count">0</span>)</button>
+                 <button class="btn" onclick="filterEquipments('missing')">Missing (<span id="missing-count">0</span>)</button>
+             </div>
+
+                <a  class="btn create" href="form.html">Create</a>
+
+          </div>
+
+
+        <table id="equipment-table" style="width: 100%; border-collapse: collapse; margin-top: 20px">
+           <thead  style="background-color: #f2f2f2;">
+               <tr style="border-bottom: 1px solid #ddd;">
+                     <th style="padding: 8px; border: 1px solid #ddd; text-align: left">ID</th>
+                      <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Image</th>
+                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Name</th>
+                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Brand</th>
+                   <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Model</th>
+                      <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Serial</th>
+                  <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Date of purchase</th>
+                   <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Broken/Missing</th>
+                   <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Cost</th>
+                     <th style="padding: 8px; border: 1px solid #ddd; text-align: left">Actions</th>
+            </tr>
+           </thead>
+
+            <tbody id="equipment-list">
+
+                </tbody>
+         </table>
+    </div>
+
+      <script src="../../static/js/equipment.js"></script>
+       <script>
+       document.addEventListener('DOMContentLoaded', function () {
+              loadEquipments();
+         });
+        </script>
+
+</body>
+</html>
