@@ -18,9 +18,15 @@ public class FitnessSessionDTO {
     private LocalTime startTime;
     private LocalTime endTime;
     private String location;
+    private String serviceName;
+
 
     public String getFormattedStartTime() {
         return startTime != null ? startTime.format(DateTimeFormatter.ofPattern("HH:mm")) : "";
+    }
+
+    public String getFormattedDate() {
+        return date != null ? date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
     }
 
     public String getFormattedEndTime() {

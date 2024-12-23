@@ -20,6 +20,9 @@ public interface PTServiceRepository extends JpaRepository<PTService, Integer> {
     @Query("SELECT ps FROM PTService ps WHERE ps.personalTrainer.ID = :ID AND ps.service.ID = :sID")
     PTService findServiceOfPTByIDAndService(@Param("ID") int id, @Param("sID") int sid);
 
+    @Query("SELECT ps FROM PTService ps WHERE ps.service.ID = :ID")
+    List<PTService> findPtServicesByServiceId(@Param("ID") int serviceId);
+
     @Transactional
     @Modifying
     @Query("DELETE FROM PTService ps WHERE ps.personalTrainer.ID = :ID")

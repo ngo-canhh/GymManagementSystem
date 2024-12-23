@@ -123,6 +123,7 @@ public class PageController {
                     sessionDTO.setLocation(session.getLocation());
                     sessionDTO.setPtName(session.getCustomerService().getPtService().getPersonalTrainer().getStaff().getFull_name());
                     sessionDTO.setNthSession(session.getNthSession());
+                    sessionDTO.setServiceName(session.getCustomerService().getPtService().getService().getName());
                     return sessionDTO;
                 }).collect(Collectors.toList());
         model.addAttribute("fitnessSessions", fitnessSessions);

@@ -164,8 +164,11 @@ public class PaymentController {
 
             // com.example.GymManagementSystem.entity.Service service = serviceService.getServiceById((int) orderRequest.get("serviceId"));
             customerService.setCustomer(customer);
-
-            customerService.setPtService(ptServiceRepository.findById(1).get());
+            //
+            List<PTService> ptServices = ptServiceRepository.findPtServicesByServiceId(service.getID());
+            PTService randomPTService = ptServices.get((int) (Math.random() * ptServices.size()));
+            customerService.setPtService(randomPTService);
+            //
             customerService.setBill(newBill);
             customerService.setPurchase_price(service.getSale_price());
             customerService.setPurchase_date(LocalDate.now());
