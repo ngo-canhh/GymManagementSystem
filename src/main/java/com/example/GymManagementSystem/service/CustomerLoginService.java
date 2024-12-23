@@ -66,6 +66,7 @@ public class CustomerLoginService implements UserDetailsService {
                 Customer savedCustomer = (Customer) response2.get("data");
                 if (savedCustomer != null && savedCustomer.getID() != null) {
                     customerLogin.setCustomer(savedCustomer);
+                    customerLogin.setRole("CUSTOMER");
                     customerLogin.setPassword(passwordEncoder.encode(customerLogin.getPassword()));
                     CustomerLogin savedCustomerLogin = customerLoginRepository.save(customerLogin);
 

@@ -75,12 +75,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.forEach(service =>{
                         servicesGrid.innerHTML += `
                         <div class="col-md-3 mt-2 all-cate" id="all_service">
+                        <a class="btn btn-primary" href="/service_detail?id=${service.id}">
                             <div class="card">
                                 <img src="/images/boxing.png" alt="Boxing">
                                 <h3 class="text-center"><b><span style="justify-content: center;">${service.name}</span></b></h3>
                                 <p><span>${service.description}</span></p>
-                                <a class="btn btn-primary" href="/service_detail?id=${service.id}">Xem chi tiết</a>
-                            </div>
+                                Xem chi tiết
+                            </div></a>
                         </div>`;
                     });
                 

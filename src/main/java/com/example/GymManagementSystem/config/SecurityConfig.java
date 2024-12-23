@@ -35,7 +35,7 @@ public class SecurityConfig {
                                                                                                                // pages
                                                                                                                // without
                         // authentication
-                        .requestMatchers("/").permitAll() // Allow the home page without authentication
+                        .requestMatchers("/","/service","/service_detail", "/list_service").permitAll() // Allow the home page without authentication
                         .requestMatchers("/admin/**").hasAnyAuthority("ADMIN") // Admin pages require ADMIN role
                         .requestMatchers("/**").hasAnyAuthority("CUSTOMER") // Customer pages require CUSTOMER role
                         .anyRequest().authenticated() // Any other requests require authentication
