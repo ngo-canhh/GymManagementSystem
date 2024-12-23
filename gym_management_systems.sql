@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `gym_management_system` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `gym_management_system`;
--- MySQL dump 10.13  Distrib 8.0.38, for macos14 (arm64)
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: gym_management_system
+-- Host: localhost    Database: gym_management_system
 -- ------------------------------------------------------
--- Server version	8.0.40
+-- Server version	9.0.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -99,7 +99,7 @@ CREATE TABLE `customer` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `phonenumber_UNIQUE` (`phonenumber`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +108,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Anthony Edward Stark',54,'Nam','0987654321','tonystark@gmail.com','1970-05-29',' 10880 Malibu Point, Malibu, California, Hoa Kỳ','2024-12-01',5),(2,'Peter Parker',24,'Nam','0978654321','peterparker@gmail.com','2000-08-20','20 Ingram Street, Forest Hills, Queens, New York','2024-12-01',2),(3,'Steve Rogers',30,'Nam','0987456321','steve@gmail.com','1994-07-04','Brooklyn, New York, Hoa Kỳ','2024-12-01',3),(4,'Clint Barton',53,'Nam','0331265478','clintbarrton@gmail.com','1971-06-07','Missouri, Hoa Kỳ','2024-12-01',5),(5,'Natasha Romanoff',40,'Nữ','0156324789','natasha@gmail.com','1984-11-22','23rd Street, Manhattan, New York, Hoa Kỳ','2024-12-01',4),(6,'Stephen Strange',45,'Nam','0564231751','drstephen@gmail.com','1989-11-11','Sanctum Sanctorum, 177A Bleecker Street, Greenwich Village, Manhattan, New York, Hoa Kỳ','2024-12-01',2),(7,'Wanda Maximoff',30,'Nữ','0987836542','wanda@gmail.com','1994-01-01','Westview, New Jersey','2024-12-01',1),(8,'Vũ Đình Cường',20,'Nam','0987836962','vudinhcuong8404@gmail.com','2024-12-07','Quỳnh Hội, Quỳnh Phụ','2024-12-07',1),(13,'VU DINH CUONG',20,'Nam','0986175856','cuongdaynemano@gmail.com','2024-12-10','Quỳnh Hội, Quỳnh Phụ','2024-12-07',2);
+INSERT INTO `customer` VALUES (1,'Anthony Edward Stark',54,'Nam','0987654321','tonystark@gmail.com','1970-05-29',' 10880 Malibu Point, Malibu, California, Hoa Kỳ','2024-12-01',5),(2,'Peter Parker',24,'Nam','0978654321','peterparker@gmail.com','2000-08-20','20 Ingram Street, Forest Hills, Queens, New York','2024-12-01',2),(3,'Steve Rogers',30,'Nam','0987456321','steve@gmail.com','1994-07-04','Brooklyn, New York, Hoa Kỳ','2024-12-01',3),(4,'Clint Barton',53,'Nam','0331265478','clintbarrton@gmail.com','1971-06-07','Missouri, Hoa Kỳ','2024-12-01',5),(5,'Natasha Romanoff',40,'Nữ','0156324789','natasha@gmail.com','1984-11-22','23rd Street, Manhattan, New York, Hoa Kỳ','2024-12-01',4),(6,'Stephen Strange',45,'Nam','0564231751','drstephen@gmail.com','1989-11-11','Sanctum Sanctorum, 177A Bleecker Street, Greenwich Village, Manhattan, New York, Hoa Kỳ','2024-12-01',2),(7,'Wanda Maximoff',30,'Nữ','0987836542','wanda@gmail.com','1994-01-01','Westview, New Jersey','2024-12-01',1),(8,'Vũ Đình Cường',20,'Nam','0987836962','vudinhcuong8404@gmail.com','2024-12-07','Quỳnh Hội, Quỳnh Phụ','2024-12-07',1),(13,'VU DINH CUONG',20,'Nam','0986175856','cuongdaynemano@gmail.com','2024-12-10','Quỳnh Hội, Quỳnh Phụ','2024-12-07',2),(30,'Vũ Cường',20,'Nữ','84666416','vudinhcuonjgyucug8404@gmail.com','2004-04-08','Quỳnh Hội, Quỳnh Phụ','2024-12-22',1),(31,'Chí  Cường',20,'Nam','489168798','skdvjbk@kjdbv.com','2004-03-15','skivhiuh iuhdrguihergirg','2024-12-22',1);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,13 +120,16 @@ DROP TABLE IF EXISTS `customer_login`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer_login` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `ID_customer` int NOT NULL,
-  `usename` varchar(256) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  PRIMARY KEY (`ID_customer`),
-  UNIQUE KEY `usename_UNIQUE` (`usename`),
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  KEY `FK_customer_login_idx` (`ID_customer`),
   CONSTRAINT `FK_customer_login` FOREIGN KEY (`ID_customer`) REFERENCES `customer` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,6 +138,7 @@ CREATE TABLE `customer_login` (
 
 LOCK TABLES `customer_login` WRITE;
 /*!40000 ALTER TABLE `customer_login` DISABLE KEYS */;
+INSERT INTO `customer_login` VALUES (2,30,'toi','$2a$10$Vd6TnwKHsSZdqxMIl/Ap4Oz1Z5iL8.BpY3Jtww6BboO5gUXsZP7dC','CUSTOMER'),(3,31,'chicuong','$2a$10$Tc05Wpit9CIDKjXedLprbe9.bvyWPZ6WOE0Ee4gw9BCvz.OUkHs5C','CUSTOMER');
 /*!40000 ALTER TABLE `customer_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,7 +293,7 @@ CREATE TABLE `personal_trainer` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_staff_UNIQUE` (`ID_staff`),
   CONSTRAINT `FK_staff_PT` FOREIGN KEY (`ID_staff`) REFERENCES `staff` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,7 +302,7 @@ CREATE TABLE `personal_trainer` (
 
 LOCK TABLES `personal_trainer` WRITE;
 /*!40000 ALTER TABLE `personal_trainer` DISABLE KEYS */;
-INSERT INTO `personal_trainer` VALUES (1,7,'Dinh dưỡng',5,20,50,'\nHuấn luyện viên cá nhân chuyên về dinh dưỡng giúp khách hàng thiết kế chế độ ăn uống phù hợp với mục tiêu sức khỏe, kết hợp cùng kế hoạch tập luyện để đạt kết quả tối ưu.'),(2,11,'Yoga',4,25,50,'Huấn luyện viên cá nhân chuyên yoga hướng dẫn khách hàng thực hành các động tác yoga, giúp cải thiện sự linh hoạt, sức mạnh, và thư giãn tinh thần. Họ thiết kế các buổi tập phù hợp với nhu cầu và khả năng của từng người.'),(3,12,'Boxing',3,20,40,'Huấn luyện viên cá nhân chuyên boxing dạy các kỹ thuật đấm, phòng thủ và chiến lược trong boxing, giúp cải thiện sức mạnh, sự bền bỉ và kỹ năng chiến đấu của khách hàng. Họ thiết kế các buổi tập để tăng cường thể lực và cải thiện kỹ năng thi đấu.'),(4,24,'Run',3,20,40,'No description');
+INSERT INTO `personal_trainer` VALUES (1,7,'Dinh dưỡng',5,20,50,'\nHuấn luyện viên cá nhân chuyên về dinh dưỡng giúp khách hàng thiết kế chế độ ăn uống phù hợp với mục tiêu sức khỏe, kết hợp cùng kế hoạch tập luyện để đạt kết quả tối ưu.'),(2,11,'Yoga',4,25,50,'Huấn luyện viên cá nhân chuyên yoga hướng dẫn khách hàng thực hành các động tác yoga, giúp cải thiện sự linh hoạt, sức mạnh, và thư giãn tinh thần. Họ thiết kế các buổi tập phù hợp với nhu cầu và khả năng của từng người.'),(3,12,'Boxing',3,20,40,'Huấn luyện viên cá nhân chuyên boxing dạy các kỹ thuật đấm, phòng thủ và chiến lược trong boxing, giúp cải thiện sức mạnh, sự bền bỉ và kỹ năng chiến đấu của khách hàng. Họ thiết kế các buổi tập để tăng cường thể lực và cải thiện kỹ năng thi đấu.'),(4,24,'Run',3,20,40,'No description'),(5,14,'Yoga',3,30,50,'công việc vô cùng khó khắn');
 /*!40000 ALTER TABLE `personal_trainer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,12 +317,13 @@ CREATE TABLE `personal_trainer_service` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `ID_PT` int NOT NULL,
   `ID_service` int NOT NULL,
+  `status` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_PT_idx` (`ID_PT`),
   KEY `FK_service_idx` (`ID_service`),
   CONSTRAINT `FK_PT` FOREIGN KEY (`ID_PT`) REFERENCES `personal_trainer` (`ID`),
   CONSTRAINT `FK_service` FOREIGN KEY (`ID_service`) REFERENCES `service` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,7 +332,7 @@ CREATE TABLE `personal_trainer_service` (
 
 LOCK TABLES `personal_trainer_service` WRITE;
 /*!40000 ALTER TABLE `personal_trainer_service` DISABLE KEYS */;
-INSERT INTO `personal_trainer_service` VALUES (1,1,1),(2,1,2),(3,1,5),(4,2,2),(5,2,3),(6,2,6),(7,3,4),(8,3,5),(9,3,7),(10,4,3);
+INSERT INTO `personal_trainer_service` VALUES (1,1,1,'Hoạt động'),(2,1,2,'Ngừng hoạt động'),(3,1,5,'Hoạt động'),(4,2,2,'Hoạt động'),(5,2,3,'Hoạt động'),(6,2,6,'Hoạt động'),(7,3,4,'Hoạt động'),(8,3,5,'Hoạt động'),(9,3,7,'Hoạt động'),(10,4,3,'Hoạt động'),(11,5,3,'Hoạt động');
 /*!40000 ALTER TABLE `personal_trainer_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +421,7 @@ CREATE TABLE `service` (
 
 LOCK TABLES `service` WRITE;
 /*!40000 ALTER TABLE `service` DISABLE KEYS */;
-INSERT INTO `service` VALUES (1,'Basic Fitness Package','General',150.5,12,3,'Gói tập cơ bản dành cho người mới bắt đầu với lịch tập 3 buổi/tuần.',20,80,'Ngừng hoạt động'),(2,'Weight Loss Program','Weight Loss',250,20,4,'Chương trình giảm cân chuyên sâu với huấn luyện viên cá nhân.',30,70,'Ngừng hoạt động'),(3,'Strength Building Pack','Strength',3000,25,5,'Gói tập luyện tăng cường sức mạnh với thiết bị và bài tập nâng cao.',25,75,'Hoạt động'),(4,'Muscle Gain Program','Bodybuilding',400,30,5,'Chương trình tăng cơ dành cho người muốn phát triển cơ bắp toàn diện.',35,65,''),(5,'Cardio & Endurance','Cardio',150,15,4,'Gói tập cardio cải thiện sức bền và tăng cường hệ tim mạch.',15,85,''),(6,'Premium PT Package','Personal PT',500,40,6,'Gói tập cao cấp với huấn luyện viên cá nhân theo sát mục tiêu cá nhân.',50,50,''),(7,'Yoga & Flexibility','Yoga & Flexibility',120,12,3,'Chương trình yoga tăng cường sự dẻo dai và giảm stress.',10,90,''),(10,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,''),(11,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,''),(12,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,''),(13,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,''),(14,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,''),(15,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,'');
+INSERT INTO `service` VALUES (1,'Basic Fitness Package','General',150.5,12,3,'Gói tập cơ bản dành cho người mới bắt đầu với lịch tập 3 buổi/tuần.',20,80,'Hoạt động'),(2,'Weight Loss Program','Weight Loss',250,20,4,'Chương trình giảm cân chuyên sâu với huấn luyện viên cá nhân.',30,70,'Hoạt động'),(3,'Strength Building Pack','Strength',3000,25,5,'Gói tập luyện tăng cường sức mạnh với thiết bị và bài tập nâng cao.',25,75,'Hoạt động'),(4,'Muscle Gain Program','Bodybuilding',400,30,5,'Chương trình tăng cơ dành cho người muốn phát triển cơ bắp toàn diện.',35,65,'Hoạt động'),(5,'Cardio & Endurance','Cardio',150,15,4,'Gói tập cardio cải thiện sức bền và tăng cường hệ tim mạch.',15,85,'Hoạt động'),(6,'Premium PT Package','Personal PT',500,40,6,'Gói tập cao cấp với huấn luyện viên cá nhân theo sát mục tiêu cá nhân.',50,50,'Hoạt động'),(7,'Yoga & Flexibility','Yoga & Flexibility',120,12,3,'Chương trình yoga tăng cường sự dẻo dai và giảm stress.',10,90,'Hoạt động'),(10,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,'Hoạt động'),(11,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,'Ngừng hoạt động'),(12,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,'Ngừng hoạt động'),(13,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,'Ngừng hoạt động'),(14,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,'Ngừng hoạt động'),(15,'Platinum Personal Training','Personal Training',250,48,3,'Trải nghiệm huấn luyện viên cá nhân đẳng cấp nhất với lộ trình tập luyện được thiết kế riêng biệt, giúp bạn đạt được mục tiêu nhanh chóng và hiệu quả.',40,60,'Ngừng hoạt động');
 /*!40000 ALTER TABLE `service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,12 +470,16 @@ DROP TABLE IF EXISTS `staff_login`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `staff_login` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `ID_staff` int NOT NULL,
-  `username` varchar(64) NOT NULL,
-  `pasword` varchar(64) NOT NULL,
-  PRIMARY KEY (`ID_staff`),
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  KEY `FK_staff_login_idx` (`ID_staff`),
   CONSTRAINT `FK_staff_login` FOREIGN KEY (`ID_staff`) REFERENCES `staff` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -479,6 +488,7 @@ CREATE TABLE `staff_login` (
 
 LOCK TABLES `staff_login` WRITE;
 /*!40000 ALTER TABLE `staff_login` DISABLE KEYS */;
+INSERT INTO `staff_login` VALUES (1,7,'dinhcuong','$2a$10$Tc05Wpit9CIDKjXedLprbe9.bvyWPZ6WOE0Ee4gw9BCvz.OUkHs5C','ADMIN');
 /*!40000 ALTER TABLE `staff_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -501,7 +511,7 @@ CREATE TABLE `staff_role` (
   KEY `FK_role_idx` (`ID_role`),
   CONSTRAINT `FK_role` FOREIGN KEY (`ID_role`) REFERENCES `position_information` (`ID`),
   CONSTRAINT `FK_staff` FOREIGN KEY (`ID_staff`) REFERENCES `staff` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -510,7 +520,7 @@ CREATE TABLE `staff_role` (
 
 LOCK TABLES `staff_role` WRITE;
 /*!40000 ALTER TABLE `staff_role` DISABLE KEYS */;
-INSERT INTO `staff_role` VALUES (1,7,1,'2024-12-01','Active',NULL),(2,9,2,'2023-11-15','Active',NULL),(3,9,7,'2023-10-20','Unactive',NULL),(4,10,1,'2023-10-10','Unactive',NULL),(5,10,4,'2023-11-11','Active',NULL),(6,11,1,'2023-09-25','Active',NULL),(7,12,1,'2023-11-01','Active',NULL),(8,13,3,'2023-12-05','Active',NULL),(9,14,5,'2023-09-15','Active',NULL),(14,20,2,'2024-12-09','Active',NULL),(15,21,1,'2024-12-09','Active',NULL),(16,23,4,'2024-12-09','Active',NULL),(17,24,1,'2024-12-09','Active',NULL);
+INSERT INTO `staff_role` VALUES (1,7,1,'2024-12-01','Active',NULL),(2,9,2,'2023-11-15','Active',NULL),(3,9,7,'2023-10-20','Unactive',NULL),(4,10,1,'2023-10-10','Unactive',NULL),(5,10,4,'2023-11-11','Active',NULL),(6,11,1,'2023-09-25','Active',NULL),(7,12,1,'2023-11-01','Active',NULL),(8,13,3,'2023-12-05','Active',NULL),(9,14,5,'2023-09-15','Unactive',NULL),(14,20,2,'2024-12-09','Active',NULL),(15,21,1,'2024-12-09','Active',NULL),(16,23,4,'2024-12-09','Active',NULL),(17,24,1,'2024-12-09','Active',NULL),(18,14,1,'2024-12-21','Active',NULL);
 /*!40000 ALTER TABLE `staff_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -549,4 +559,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-18 15:40:33
+-- Dump completed on 2024-12-22 15:18:50

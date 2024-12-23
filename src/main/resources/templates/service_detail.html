@@ -15,13 +15,26 @@
         <nav>
             <ul>
                 <li><a th:href="@{/service}">Dịch Vụ</a></li>
-                <li><a href="#">Lịch Tập</a></li>
+                <li><a th:href="@{/fitness-sessions/remaining-sessions/{customerId}(customerId=${customerId})}">Lịch Tập</a></li>
                 <li><a href="#">Chính Sách Giá</a></li>
                 <li><a href="#">CLB</a></li>
                 <li><a href="#">Khuyến Mãi</a></li>
             </ul>
         </nav>
-        <button class="login-btn">Login</button>
+        <a th:href="@{/login}" class="login-btn" sec:authorize="!isAuthenticated()">Login</a>
+        <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+            <li class="nav-item dropdown">
+              <a class="nav-link ms-3  user-info" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="username btn btn-info" th:text="${#authentication.name}"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/admin/service" sec:authorize="hasAnyAuthority('ADMIN')">Trang ADMIN</a></li>
+                <li><a class="dropdown-item" th:href="@{/fitness-sessions/remaining-sessions/{customerId}(customerId=${customerId})}" sec:authorize="hasAnyAuthority('CUSTOMER')">Các khóa đã đăng ký</a></li>
+                
+                <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+              </ul>
+            </li>
+          </ul>
     </header>
 
     <div class="container mt-5">

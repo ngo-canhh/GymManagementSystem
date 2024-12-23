@@ -32,6 +32,6 @@ public interface StaffRoleRepository extends JpaRepository<StaffRole, Integer> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE StaffRole sr SET sr.status = 'Unactive' WHERE sr.ID = : ID")
+    @Query("UPDATE StaffRole sr SET sr.status = 'Unactive' WHERE sr.ID = :ID")
     void unactiveStaffRole(@Param("ID") int ID);
 }

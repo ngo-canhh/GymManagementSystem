@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="/css/home.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/CSS/services.css">
     
 </head>
@@ -14,32 +15,45 @@
     <!-- Header -->
     <header class="header">
         <div class="logo">
-            <a href="../templates/services.html"><img src="" alt="SoftGym Logo"></a>
+            <a href="/"><img src="/images/SOFTGYM.jpg" alt="SoftGym Logo"></a>
         </div>
         <nav>
             <ul>
-                <li><a href="@{/service}">Dịch Vụ</a></li>
-                <li><a href="#">Lịch Tập</a></li>
+                <li><a th:href="@{/service}">Dịch Vụ</a></li>
+                <li><a th:href="@{/fitness-sessions/remaining-sessions/{customerId}(customerId=${customerId})}">Lịch Tập</a></li>
                 <li><a href="#">Chính Sách Giá</a></li>
                 <li><a href="#">CLB</a></li>
                 <li><a href="#">Khuyến Mãi</a></li>
             </ul>
         </nav>
-        <button class="login-btn"><img src="">Login</button>
+        <a th:href="@{/login}" class="login-btn" sec:authorize="!isAuthenticated()">Login</a>
+        <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+            <li class="nav-item dropdown">
+              <a class="nav-link ms-3  user-info" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="username btn btn-info" th:text="${#authentication.name}"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/admin/service" sec:authorize="hasAnyAuthority('ADMIN')">Trang ADMIN</a></li>
+                <li><a class="dropdown-item" th:href="@{/fitness-sessions/remaining-sessions/{customerId}(customerId=${customerId})}" sec:authorize="hasAnyAuthority('CUSTOMER')">Các khóa đã đăng ký</a></li>
+                
+                <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+              </ul>
+            </li>
+          </ul>
     </header>
 
     <!-- Main Section -->
     <main>
-        <h2>Chúng tôi cung cấp các dịch vụ:</h2>
-        <div class="row" id="services-grid">
+        <h2 id="gioithieu" class="text-center"><strong>CHÚNG TÔI CUNG CẤP CÁC DỊCH VỤ:</strong></h2>
+        <div class="row " id="services-grid">
                 <!-- Boxing Cards -->
                 <div class="col-md-3 mt-2 all-cate" th:each="service: ${services}" id="all_service">
                     <div class="card">
                         <img src="/images/boxing.png" alt="Boxing">
                         <h3 class="text-center"><b><span th:text="${service.name}" style="justify-content: center;"></span></b></h3>
                         <p><span th:text="${service.description}"></span></p>
-                        <a th:href="@{/service_detail(id=${service.ID})}" class="btn btn-primary">Xem chi tiết</a>
-                        <button class="btn btn-primary cate_info" th:attr="data-id=${service.category}">Xem chi tiet js</button>
+                        <!-- <a th:href="@{/service_detail(id=${service.ID})}" class="btn btn-primary">Xem chi tiết</a> -->
+                        <button class="btn btn-primary cate_info" th:attr="data-id=${service.category}">Xem chi tiet</button>
                     </div>
                 </div>
         </div>
@@ -57,19 +71,25 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="mt-3">
         <div class="footer-left">
-            <img src="" alt="SoftGym Logo">
-            <p><img src="">0912345678</p>
-            <p><img src="">Nhà tập, số 4, Phố Lê Thanh Nghị, Q. Hai Bà Trưng, TP Hà Nội</p>
-            <p><img src="">Thời gian: Thứ Hai - Thứ Sáu: 6.00 đến 23.00 và Thứ Bảy - Chủ Nhật: 8.00 đến 22.00</p>
+            <img src="/images/SOFTGYM.jpg" alt="SoftGym Logo">
+            <p><i class="bi bi-telephone-fill"></i> 0912345678</p>
+            <p><i class="bi bi-geo-alt-fill"></i> Nhà tập, số 4, Phố Lê Thanh Nghị, Q. Hai Bà Trưng, TP Hà Nội</p>
+            <p><i class="bi bi-calendar-week"></i> Thời gian: Thứ Hai - Thứ Sáu: 6.00 đến 23.00 và Thứ Bảy - Chủ Nhật:
+                8.00 đến 22.00</p>
         </div>
-        <div class="footer-middle">
-            <ul>
+        <div class="footer-middle row"> 
+            <div>
+                <h5>LIên kết</h5>
+            </div>
+            <ul class="col-6">
                 <li><a href="#">Phương thức thanh toán</a></li>
                 <li><a href="#">Dịch vụ</a></li>
                 <li><a href="#">Chính sách bảo mật</a></li>
                 <li><a href="#">Tin tức</a></li>
+            </ul>
+            <ul class="col-6">
                 <li><a href="#">Tuyển dụng</a></li>
                 <li><a href="#">Liên hệ</a></li>
                 <li><a href="#">Câu lạc bộ</a></li>
@@ -78,10 +98,13 @@
         <div class="footer-right">
             <p>Mạng xã hội</p>
             <ul class="social-icons">
-                <li><a href="#"><img src="" alt=""></a></li>
-                <li><a href="#"><img src="" alt=""></a></li>
-                <li><a href="#"><img src="" alt=""></a></li>
-                <li><a href="#"><img src="" alt=""></a></li>
+                <li class="me-3"><a href="https://www.facebook.com/ngoCanh.1510204" class="text-white"><i
+                            class="bi bi-facebook"></i></a></li>
+                <li class="me-3"><a href="https://www.facebook.com/chicgtligg" class="text-white"><i
+                            class="bi bi-twitter"></i></a></li>
+                <li class="me-3"><a href="https://www.facebook.com/vu.cuong.11150" class="text-white"><i
+                            class="bi bi-instagram"></i></a></li>
+                <li><a href="#" class="text-white"><i class="bi bi-linkedin"></i></a></li>
             </ul>
         </div>
         <div class="footer-bottom">

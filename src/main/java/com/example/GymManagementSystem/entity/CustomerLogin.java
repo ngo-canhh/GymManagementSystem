@@ -1,5 +1,6 @@
 package com.example.GymManagementSystem.entity;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,31 +15,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "personal_trainer_service")
+@Table(name = "customer_login")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PTService {
-
-    public PTService(PersonalTrainer personalTrainer, Service service, String status) {
-        this.personalTrainer = personalTrainer;
-        this.service = service;
-        this.status = status;
-    }
+public class CustomerLogin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "ID_PT", referencedColumnName = "ID")
-    private PersonalTrainer personalTrainer;
+    @JoinColumn(name = "ID_customer", referencedColumnName = "ID")
+    private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_service", referencedColumnName = "ID")
-    private Service service;
+    @Column(name = "password")
+    private String password;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "role")
+    private String role;
+
 }

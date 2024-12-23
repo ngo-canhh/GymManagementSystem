@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         
         const idStaff = parseInt(document.getElementById('staff-id').value);
+        console.log("staff id", idStaff);
 
         const staff = {
             id: idStaff

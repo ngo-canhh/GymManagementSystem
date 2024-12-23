@@ -23,6 +23,10 @@ public class FitnessSessionService {
     public List<FitnessSession> getSessionsByDate(LocalDate date) {
         return fitnessSessionRepository.findByDate(date);
     }
+
+    public List<FitnessSession> getRemainingSessionsByCustomerId(int customerId) {
+        return fitnessSessionRepository.findRemainingSessionsByCustomerId(customerId);
+    }
     
 
     public List<TimeSlot> getAvailableTimeSlots(Integer serviceId, LocalDate date){

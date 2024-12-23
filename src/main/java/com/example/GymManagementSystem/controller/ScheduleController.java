@@ -33,7 +33,7 @@ public class ScheduleController {
         model.addAttribute("calendar", calendar);
         model.addAttribute("month", month);
         model.addAttribute("year", year);
-        return "StaffViews/schedule";
+        return "AdminView/admin_home";
     }
 
     @GetMapping("/staff/schedule/date/{day}/{month}/{year}")
@@ -63,6 +63,8 @@ public class ScheduleController {
         model.addAttribute("year", localDate.getYear());
         return "StaffViews/day-timeline";
     }
+
+    
 
     private List<List<String>> generateCalendar(int month, int year) {
         List<List<String>> weeks = new ArrayList<>();
