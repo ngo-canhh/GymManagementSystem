@@ -32,12 +32,28 @@
                         <li class="nav-item"><a href="/admin/product" class="nav-link">Sản phẩm</a></li>
                         <li class="nav-item"><a href="/admin/pt" class="nav-link">Huấn luyện viên</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Doanh số</a></li>
+                        <li class="nav-item"><a href="/makeOrder" class="nav-link">Tạo đơn</a></li>
                     </ul>
                 </div>
 
-                <button class="nav-item btn btn-outline-dark ms-2">
+                <!-- <button class="nav-item btn btn-outline-dark ms-2">
                     <i class="bi bi-person-circle"></i> Login
-                </button>
+                </button> -->
+                <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link ms-3 user-info" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="username btn btn-info" th:text="${#authentication.name}"></span>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/">Trang chủ</a></li>
+                        <li><a class="dropdown-item" href="/admin/service" sec:authorize="hasAnyAuthority('ADMIN')">Trang ADMIN</a></li>
+                        
+                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Danh sách nhà cung cấp</a></li>
+                      </ul>
+                    </li>
+                  </ul>
             </div>
         </nav>
     </header>

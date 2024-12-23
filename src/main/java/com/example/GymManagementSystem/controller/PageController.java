@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.GymManagementSystem.config.CustomerUserDetails;
 import com.example.GymManagementSystem.entity.Customer;
 import com.example.GymManagementSystem.entity.CustomerLogin;
 import com.example.GymManagementSystem.entity.Service;
@@ -40,7 +42,13 @@ public class PageController {
     private CustomerLoginService customerLoginService;
     
     @GetMapping({"/", ""})
-    public String home() {
+    public String home(Model model, @AuthenticationPrincipal CustomerUserDetails customerUserDetails) {
+        if(customerUserDetails != null && customerUserDetails.getCustomer() != null){
+            model.addAttribute("customerId", customerUserDetails.getCustomer().getID());
+        }
+        // if(customerUserDetails != null && customerUserDetails.getStaff() != null){
+        //     model.addAttribute("customerId", customerUserDetails.getStaff().getID());
+        // }
         return "home";
     }
 

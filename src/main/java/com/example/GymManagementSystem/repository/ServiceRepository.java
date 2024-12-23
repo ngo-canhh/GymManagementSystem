@@ -11,7 +11,7 @@ import com.example.GymManagementSystem.entity.Service;
 
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Integer> {
-    @Query("SELECT s FROM Service s")
+    @Query("SELECT s FROM Service s WHERE s.status = 'Hoạt động'")
     List<Service> findAllServices();
 
     @Query("SELECT DISTINCT s.category FROM Service s")
@@ -23,7 +23,7 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
     @Query("SELECT s FROM Service s WHERE s.category = :name")
     <list>Service findServiceByCategoryName(String name);
 
-    @Query("SELECT s FROM Service s WHERE s.ID = :serviceID")
+    @Query("SELECT s FROM Service s WHERE s.ID = :serviceID and s.status = 'Hoạt động'")
     Service findServiceByID(@Param("serviceID") int serviceID);
 
     @Query("SELECT s FROM Service s WHERE s.name LIKE %:serviceName%")

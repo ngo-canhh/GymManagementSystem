@@ -5,11 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="/StaffViewsCss/order-manage.css" />
-=======
-    <link rel="stylesheet" href="StaffViewsCss/order-manage.css" />
->>>>>>> a4d7310331aeb30142194ea92e03640a69cba5b3
 </head>
 
 <body>
@@ -71,7 +67,7 @@
                 <h2>Purchase Details</h2>
                 <div class="field-row">
                     <label for="discount">Discount: </label>
-                    <input type="number" id="discount" required />
+                    <input type="number" id="discount" value="0" required readonly/>
                 </div>
                 <div class="field-row">
                     <label for="balance">Balance: </label>
@@ -79,7 +75,7 @@
                 </div>
                 <div class="field-row">
                     <label for="staff">ID Staff: </label>
-                    <input type="number" id="staff-id" required />
+                    <input type="number" id="staff-id" th:value="${staffId}" required readonly />
                 </div>
                 <div class="balance-row">
                     <label>Total: </label>

@@ -10,6 +10,7 @@ import org.apache.catalina.connector.Response;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.GymManagementSystem.DTO.OrderRequest;
+import com.example.GymManagementSystem.config.CustomerUserDetails;
 import com.example.GymManagementSystem.entity.Bill;
 import com.example.GymManagementSystem.entity.Customer;
 import com.example.GymManagementSystem.entity.IteamProductBill;
@@ -52,9 +54,10 @@ public class Page_StaffController {
     @Autowired
     private StaffRepository staffRepository;
     @GetMapping("/makeOrder")
-    public String makeOrder(Model model){
+    public String makeOrder(Model model, @AuthenticationPrincipal CustomerUserDetails customerUserDetails) {
         LocalDate date = LocalDate.now();
         model.addAttribute("date", date);
+        model.addAttribute("staffId", customerUserDetails.getStaff().getID());
         return "StaffViews/order";
     }
 
