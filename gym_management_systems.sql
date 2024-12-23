@@ -276,6 +276,23 @@ INSERT INTO `item_product_bill` VALUES (1,1,1,100,2,200),(2,1,2,150,1,150),(3,2,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `notification`
+--
+
+DROP TABLE IF EXISTS `notification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+
+CREATE TABLE `notification` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,            
+  `staff_id` INT NOT NULL,                        
+  `message` VARCHAR(255) NOT NULL,                
+  `is_read` BOOLEAN NOT NULL DEFAULT FALSE,        
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  CONSTRAINT `fk_notification_staff` FOREIGN KEY (`staff_id`) REFERENCES `staff`(`ID`) 
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
 -- Table structure for table `personal_trainer`
 --
 
