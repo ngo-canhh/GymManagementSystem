@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Lịch Tập</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #00796b;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td:hover {
+            background-color: #f1f1f1;
+        }
+
+        .time-slot {
+            cursor: pointer;
+            background-color: #f0f0f0;
+            padding: 8px 12px;
+            display: inline-block;
+            margin: 4px;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-slot:hover {
+            background-color: #e0f7fa;
+            transform: scale(1.05);
+        }
+
+        .time-slot.selected {
+            background-color: #4caf50;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .selected-day {
+            background-color: #b2dfdb !important;
+            font-weight: bold;
+            color: #00796b;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #00796b;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #005d4f;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            background-color: #004c40;
+            transform: scale(0.95);
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        p span {
+            font-weight: bold;
+            color: #00796b;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Lịch Tập</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Ngày</th>
+                <th>Khung Giờ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <input type="hidden" id="serviceId" th:value="${serviceId}">
+            <tr th:each="scheduleData, dayStat : ${scheduleDataList}">
+                <td th:data-date="${scheduleData.date}" th:text="${scheduleData.formattedDate}"></td>
+                <td>
+                    <div th:each="timeSlot : ${scheduleData.timeSlots}">
+                        <span class="time-slot" th:data-time-slot-id="${timeSlot.id}"
+                            th:text="${#temporals.format(timeSlot.startTime, 'HH:mm')} + ' - ' + ${#temporals.format(timeSlot.endTime, 'HH:mm')}">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <button onclick="submitSelectedTimeSlot()">Đăng Ký Buổi Tập</button>
+    <p>Time Slot đã chọn: <span id="selectedTimeSlot"></span></p>
+    <script th:inline="javascript">
+        let selectedTimeSlots = [];
+        const timeSlots = document.querySelectorAll(".time-slot");
+        let selectedDay = null;
+        timeSlots.forEach(timeSlot => {
+            timeSlot.addEventListener("click", function () {
+                const day = this.closest('tr').querySelector('td');
+                const timeSlotId = this.getAttribute('data-time-slot-id');
+                const date = day.getAttribute("data-date");
+
+                // Chọn hoặc bỏ chọn khung giờ
+                const isSelected = selectedTimeSlots.some(item => item.timeSlotId === parseInt(timeSlotId) && item.date === date);
+
+                if (!isSelected) {
+                    // Thêm vào danh sách
+                    selectedTimeSlots.push({ timeSlotId: parseInt(timeSlotId), date: date });
+                    this.classList.add('selected');
+                } else {
+                    // Loại bỏ khỏi danh sách
+                    selectedTimeSlots = selectedTimeSlots.filter(item => !(item.timeSlotId === parseInt(timeSlotId) && item.date === date));
+                    this.classList.remove('selected');
+                }
+
+                // Cập nhật nội dung hiển thị
+                document.getElementById("selectedTimeSlot").textContent = selectedTimeSlots.map(item => {
+                    return item.date + " : " + document.querySelector(`[data-time-slot-id="${item.timeSlotId}"]`).textContent;
+                }).join(" | ");
+            });
+        });
+
+
+        function submitSelectedTimeSlot() {
+            const frequency = /*[[${frequency}]]*/ 0;
+            const numberOfSessions = /*[[${numberOfSessions}]]*/ 0;
+            if (selectedTimeSlots.length !== frequency) {
+                console.log(selectedTimeSlots);
+                alert(`Bạn đã chọn ${selectedTimeSlots.length}`);
+                alert(`Vui lòng chọn đủ ${frequency} khung giờ!`);
+                return;
+            }
+
+            // lặp qua tưng time slot để gen ra cho đủ số buổi tập
+            //tạo một copy của selectedTimeSlots
+            let sessionsToSubmit = [...selectedTimeSlots];
+            for (let i = 1; i < Math.floor(numberOfSessions / frequency); i++) {
+                selectedTimeSlots.forEach(item => {
+                    const nextWeekDate = new Date(item.date);
+                    nextWeekDate.setDate(nextWeekDate.getDate() + 7 * i);
+                    sessionsToSubmit.push({
+                        timeSlotId: item.timeSlotId,
+                        date: nextWeekDate.toISOString().split('T')[0]
+                    });
+                });
+            }
+
+            for (let i = 0; i < numberOfSessions % frequency; i++) {
+                const nextWeekDate = new Date(selectedTimeSlots[i].date);
+                nextWeekDate.setDate(nextWeekDate.getDate() + 7 * Math.floor(numberOfSessions / frequency));
+                sessionsToSubmit.push({
+                    timeSlotId: selectedTimeSlots[i].timeSlotId,
+                    date: nextWeekDate.toISOString().split('T')[0]
+                });
+            }
+
+
+            console.log(sessionsToSubmit);
+            const serviceId = document.getElementById("serviceId").value;
+            
+            fetch('/make-order-for-course', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    serviceId: serviceId,
+                    sessions: sessionsToSubmit
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert("Đăng kí thành công")
+                    console.log(data)
+                    if (data.redirectUrl) {
+                        window.location.href = data.redirectUrl;
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error during POST request:', error);
+                    alert("Đã có lỗi xảy ra trong quá trình đăng kí")
+            })
+
+            
+
+            
+            
+            // const id = 11;
+
+
+            // fetch(`/service/make-schedule/submit?ID_customer_service=${encodeURIComponent(id)}`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(sessionsToSubmit),
+            // })
+            //     .then(response => {
+            //         if (!response.ok) {
+            //             throw new Error(`HTTP error! Status: ${response.status}`);
+            //         }
+            //         return response.json();
+            //     })
+            //     .then(data => {
+            //         alert("Đăng kí thành công")
+            //         console.log(data)
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error during POST request:', error);
+            //         alert("Đã có lỗi xảy ra trong quá trình đăng kí")
+            //     });
+        }
+    </script>
+</body>
+
+</html>
