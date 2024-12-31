@@ -189,8 +189,9 @@ document.getElementById("searchForm").addEventListener("submit", function (event
     event.preventDefault(); //chặn gửi form mặc định
 
     const searchquery = document.getElementById("searchInput").value;
-    const query = searchquery.trim();
+    const query = searchquery.trim().toLowerCase();
     console.log(query);
+
     
     //thêm url 
     fetch(`/admin/customer/searchCustomer?NameOrPhone=${encodeURIComponent(query)}`)
