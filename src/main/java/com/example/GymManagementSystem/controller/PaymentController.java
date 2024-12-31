@@ -126,9 +126,11 @@ public class PaymentController {
     public String paymentCompleted(HttpServletRequest request, Model model) {
 
         int paymentStatus = vnPayService.orderReturn(request);
+        @SuppressWarnings("unchecked")
         Map<String, Object> orderRequest = (Map<String, Object>) request.getSession().getAttribute("orderRequest");
         if (orderRequest.get("serviceId") != null) {
             System.out.println("Service ID: " + orderRequest.get("serviceId"));
+            @SuppressWarnings({ "rawtypes", "unchecked" })
             List<LinkedHashMap> rawSessions = (List<LinkedHashMap>) orderRequest.get("sessions");
 
             List<SessionDTO> sessions = rawSessions.stream()
