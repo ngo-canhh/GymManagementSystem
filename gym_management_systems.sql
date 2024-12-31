@@ -42,7 +42,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,1,19,'2024-12-01 10:00:00',450,'Credit Card','Completed'),(2,2,10,'2024-12-02 14:30:00',900,'Cash','Pending'),(3,3,12,'2024-12-03 08:15:00',850,'Bank Transfer','Completed'),(4,4,11,'2024-12-04 11:45:00',760,'Debit Card','Cancelled'),(5,5,13,'2024-12-05 09:00:00',250,'Credit Card','Completed'),(6,1,14,'2024-12-06 16:30:00',550,'PayPal','Pending'),(7,2,19,'2024-12-07 07:30:00',350,'Cash','Completed'),(8,3,10,'2024-12-08 12:00:00',740,'Bank Transfer','Cancelled'),(9,6,12,'2024-12-09 13:45:00',770,'Debit Card','Completed'),(10,7,11,'2024-12-10 10:15:00',120,'Credit Card','Pending');
+INSERT INTO `bill` VALUES (1,1,19,'2024-12-01 10:00:00',450,'Credit Card','Completed'),(2,2,10,'2024-12-02 14:30:00',900,'Cash','Completed'),(3,3,12,'2024-12-03 08:15:00',850,'Bank Transfer','Completed'),(4,4,11,'2024-12-04 11:45:00',760,'Debit Card','Completed'),(5,5,13,'2024-12-05 09:00:00',250,'Credit Card','Completed'),(6,1,14,'2024-12-06 16:30:00',550,'PayPal','Completed'),(7,2,19,'2024-12-07 07:30:00',350,'Cash','Completed'),(8,3,10,'2024-12-08 12:00:00',740,'Bank Transfer','Completed'),(9,6,12,'2024-12-09 13:45:00',770,'Debit Card','Completed'),(10,7,11,'2024-12-10 10:15:00',120,'Credit Card','Completed');
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
